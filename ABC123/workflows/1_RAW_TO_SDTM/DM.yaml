@@ -1,0 +1,17 @@
+meta:
+  ID: DM
+  Type: Mapped
+  Description: Transform Raw DM to SDTM DM
+  Priority: 1
+spec:
+  Raw_DM:
+    STUDYID:
+      type: character
+    SUBJID:
+      type: character
+steps:
+  - output: SDTM_DM
+    name: gsm.core::RunQuery
+    params:
+      df: Raw_DM
+      strQuery: "SELECT * FROM df"

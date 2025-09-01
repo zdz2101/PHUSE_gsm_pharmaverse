@@ -1,0 +1,42 @@
+meta:
+  ID: ADSL
+  Type: Analysis
+  Description: Create Basic ADSL
+  Priority: 1
+spec:
+  Mapped_DM:
+    STUDYID:
+      type: character
+    SUBJID:
+      type: character
+  Mapped_VS:
+    STUDYID:
+      type: character
+    SUBJID:
+      type: character
+steps:
+  - output: add_weight
+    name: admiral::derive_vars_merged
+    params:
+      dataset: Mapped_DM
+      dataset_add: Mapped_VS
+      by_vars: !expr exprs(STUDYID, USUBJID)
+      order: !expr exprs(convert_dtc_to_dtm(VSDTC))
+      mode: "last"
+      new_vars: !expr exprs(BASEHEIGHT = VSORRES)
+      filter_add: !expr rlang::expr(VSTESTCD == 'HEIGHT' & VISIT == 'Baseline')
+  - output: add_height
+    name: admiral::derive_vars_merged
+    params:
+      dataset: add_weight
+      dataset_add: Mapped_VS
+      by_vars: !expr exprs(STUDYID, USUBJID)
+      order: !expr exprs(convert_dtc_to_dtm(VSDTC))
+      mode: "last"
+      new_vars: !expr exprs(BASEWEIGHT = VSORRES)
+      filter_add: !expr rlang::expr(VSTESTCD == 'WEIGHT' & VISIT == 'Baseline')
+  - output: adsl
+    name: gsm.core::RunQuery
+    params:
+      df: add_height
+      strQuery: "SELECT STUDYID, USUBJID, SEX, AGE, (BASEWEIGHT/((BASEHEIGHT/100)^2)) AS BMI FROM df"

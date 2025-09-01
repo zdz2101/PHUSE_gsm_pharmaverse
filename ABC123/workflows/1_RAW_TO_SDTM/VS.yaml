@@ -1,0 +1,17 @@
+meta:
+  ID: VS
+  Type: Mapped
+  Description: Transform Raw VS to SDTM VS
+  Priority: 1
+spec:
+  Raw_VS:
+    STUDYID:
+      type: character
+    SUBJID:
+      type: character
+steps:
+  - output: SDTM_VS
+    name: gsm.core::RunQuery
+    params:
+      df: Raw_VS
+      strQuery: "SELECT * FROM df"

@@ -1,0 +1,27 @@
+meta:
+  ID: TABLE1
+  Type: TFL
+  Description: Create Basic ADSL
+  Priority: 1
+spec:
+  Analysis_ADSL:
+    USUBJID:
+      type: character
+    AGE:
+      type: numeric
+    SEX:
+      type: character
+    BMI:
+      type: numeric
+steps:
+  - output: table1
+    name: gtsummary::tbl_summary
+    params:
+      data: Analysis_ADSL
+      include:
+        - AGE
+        - SEX
+        - BMI
+      type:
+        - !expr AGE ~ 'continuous'
+        - !expr BMI ~ 'continuous'
