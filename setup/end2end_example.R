@@ -63,7 +63,8 @@ TFLs
 
 
 # ------------------------------------------------------------------------------
-# Use ADAM to create RDS
+## FOR ARS
+
 ARS_workflows <- gsm.core::MakeWorkflowList(
   strNames = "table1_ars",
   strPath = "./ABC123/workflows/3_ADAM_TO_ARS/",
