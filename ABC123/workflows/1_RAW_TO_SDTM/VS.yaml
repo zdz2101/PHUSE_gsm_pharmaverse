@@ -2,16 +2,32 @@ meta:
   ID: VS
   Type: Mapped
   Description: Transform Raw VS to SDTM VS
-  Priority: 1
+  Priority: 2
 spec:
   Raw_VS:
     STUDYID:
       type: character
-    SUBJID:
+    USUBJID:
+      type: character
+  Mapped_DM:
+    STUDYID:
+      type: character
+    USUBJID:
       type: character
 steps:
-  - output: SDTM_VS
+  - output: preprocess_vs
     name: gsm.core::RunQuery
     params:
       df: Raw_VS
-      strQuery: "SELECT * FROM df"
+      strQuery: "SELECT STUDYID, USUBJID, VISIT, VSTESTCD, VSORRES, VSSTDTC, CAST(VSSTDTC AS DATE) AS VSSTDT FROM df"
+
+  - output: SDTM_VS
+    name: sdtm.oak::derive_study_day
+    params:
+      sdtm_in: preprocess_vs
+      dm_domain: Mapped_DM
+      tgdt: "VSSTDT"
+      refdt: "RFSTDTC"
+      study_day_var: "VSSTDY"
+
+

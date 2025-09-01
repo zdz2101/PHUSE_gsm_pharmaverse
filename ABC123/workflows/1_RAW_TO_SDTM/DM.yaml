@@ -7,7 +7,7 @@ spec:
   Raw_DM:
     STUDYID:
       type: character
-    SUBJID:
+    USUBJID:
       type: character
 steps:
   - output: SDTM_DM

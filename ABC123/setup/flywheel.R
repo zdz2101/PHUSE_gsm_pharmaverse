@@ -16,6 +16,7 @@ SDTM_workflows <- gsm.core::MakeWorkflowList(
   strPackage = NULL
 )
 SDTM_mapped <- gsm.core::RunWorkflows(lWorkflows = SDTM_workflows, lData = lData)
+map2(SDTM_mapped, names(SDTM_mapped), function(x,y) arrow::write_parquet(x, paste0("./ABC123/SDTM/",y)))
 
 # Use admiral to create a basic ADSL
 options("yaml.eval.expr" = TRUE) # needs for admiral
@@ -25,6 +26,7 @@ ADAM_workflows <- gsm.core::MakeWorkflowList(
   strPackage = NULL
 )
 ADAM_mapped <- gsm.core::RunWorkflows(lWorkflows = ADAM_workflows, lData = SDTM_mapped)
+map2(ADAM_mapped, names(ADAM_mapped), function(x,y) arrow::write_parquet(x, paste0("./ABC123/ADaM/",y)))
 
 # Turn ADSL into Table 1
 TFL_workflows <- gsm.core::MakeWorkflowList(

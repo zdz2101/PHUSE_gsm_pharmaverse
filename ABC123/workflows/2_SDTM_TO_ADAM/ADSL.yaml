@@ -7,12 +7,12 @@ spec:
   Mapped_DM:
     STUDYID:
       type: character
-    SUBJID:
+    USUBJID:
       type: character
   Mapped_VS:
     STUDYID:
       type: character
-    SUBJID:
+    USUBJID:
       type: character
 steps:
   - output: add_weight
@@ -21,7 +21,7 @@ steps:
       dataset: Mapped_DM
       dataset_add: Mapped_VS
       by_vars: !expr exprs(STUDYID, USUBJID)
-      order: !expr exprs(convert_dtc_to_dtm(VSDTC))
+      order: !expr exprs(convert_dtc_to_dtm(VSSTDTC))
       mode: "last"
       new_vars: !expr exprs(BASEHEIGHT = VSORRES)
       filter_add: !expr rlang::expr(VSTESTCD == 'HEIGHT' & VISIT == 'Baseline')
@@ -31,7 +31,7 @@ steps:
       dataset: add_weight
       dataset_add: Mapped_VS
       by_vars: !expr exprs(STUDYID, USUBJID)
-      order: !expr exprs(convert_dtc_to_dtm(VSDTC))
+      order: !expr exprs(convert_dtc_to_dtm(VSSTDTC))
       mode: "last"
       new_vars: !expr exprs(BASEWEIGHT = VSORRES)
       filter_add: !expr rlang::expr(VSTESTCD == 'WEIGHT' & VISIT == 'Baseline')
