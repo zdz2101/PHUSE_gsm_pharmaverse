@@ -2,6 +2,8 @@ library(gsm.core)
 library(dplyr)
 library(admiral)
 library(sdtm.oak)
+library(cards)
+library(gtsummary)
 
 # Prepare list of data of raw-data
 lData <- list(
@@ -36,3 +38,13 @@ TFL_workflows <- gsm.core::MakeWorkflowList(
 )
 TFLs <- gsm.core::RunWorkflows(lWorkflows = TFL_workflows, lData = ADAM_mapped)
 TFLs
+
+# Use ADAM to create RDS
+ARS_workflows <- gsm.core::MakeWorkflowList(
+  strNames = "table1_ars",
+  strPath = "./ABC123/workflows/3_ADAM_TO_ARS/",
+  strPackage = NULL
+)
+ARS_datasets <- gsm.core::RunWorkflows(lWorkflows = ARS_workflows, lData = ADAM_mapped)
+map2(ARS_datasets, names(ARS_datasets), function(x,y) saveRDS(x, paste0("./ABC123/ARS/", y))) # parquet may not be good export
+

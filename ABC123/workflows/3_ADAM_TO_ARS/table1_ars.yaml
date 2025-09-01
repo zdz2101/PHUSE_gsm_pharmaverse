@@ -1,0 +1,24 @@
+meta:
+  ID: table1_ars
+  Type: ars
+  Description: Create Basic ADSL
+  Priority: 1
+spec:
+  Analysis_ADSL:
+    USUBJID:
+      type: character
+    AGE:
+      type: numeric
+    SEX:
+      type: character
+    BMI:
+      type: numeric
+steps:
+  - output: table1_ars
+    name: cards::ard_summary
+    params:
+      data: Analysis_ADSL
+      variables:
+        - AGE
+        - SEX
+        - BMI

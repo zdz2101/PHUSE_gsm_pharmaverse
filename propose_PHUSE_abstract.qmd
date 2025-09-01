@@ -1,0 +1,35 @@
+---
+title: "Harmonizing gsm-pharmaverse"
+format: html
+editor: visual
+---
+
+# Harmonizing gsm and the Pharmaverse: Orchestrating SDTM, ADaM, ARS, and TFLs in a Unified R Workflow
+
+## Background:
+
+The `pharmaverse` has quickly established itself as a community standard for open-source clinical reporting, with packages like `sdtm.oak` for SDTM transformation, `admiral` for ADaM derivations, `cards` for Analysis Results Standards (ARS) datasets, and `gtsummary` for TFL generation. In parallel, the `gsm` framework, in particular the `gsm.core`, has matured as a YAML-driven workflow engine providing reproducibility, traceability, and audit-ready pipelines for data science in clinical development. These ecosystems have typically evolved in parallel, but their complementary strengths create an opportunity for integration.
+
+## Objective:
+
+We present a hybrid "gsm–pharmaverse" pipeline demonstrating how `gsm.core` can orchestrate `pharmaverse` packages end-to-end, transforming raw eCRF data into SDTM, ADaM, ARS, and finally TFL outputs. This case study highlights how harmonizing these ecosystems can accelerate adoption of open-source R workflows in regulated clinical trial reporting.
+
+## Methods:
+
+-   **Raw → SDTM (gsm + sdtm.oak):** CDASH-style parquet files for Demographics (DM) and Vital Signs (VS) were mapped into SDTM domains using `gsm.core` workflows calling `sdtm.oak` ensuring CDISC-conformant transformations.
+
+-   **SDTM → ADaM (gsm + admiral):** SDTM domains were re-plugged into gsm workflows, where complex functions such as `admiral::derive_vars_merged()` derived ADSL variables like baseline weight and BMI. Using YAML `!expr` tags, the derivation logic was specified declaratively, keeping transformations reproducible and auditable.
+
+-   **ADaM → TFLs (gsm + gtsummary):** From the derived ADaM, gsm workflows directly called `gtsummary` to render Table 1 demographic summaries. This produced publication-ready TFLs in a fully traceable pipeline.
+
+-   **ADaM → ARS (gsm + cards, exploratory):** In parallel, the same ADaM datasets were extended using **cards** to begin shaping ARS-compliant datasets/outputs. As the landscape for ARS develops, the potential for integration of appropriate libraries like `cards` fits into the gsm framework easily as well.
+
+## Results:
+
+The pipeline successfully demonstrated that `gsm.core` can orchestrate a start to finish pharmaverse toolchain: sdtm.oak standardized raw data into SDTM, admiral derived ADaM datasets, gtsummary produced clinical tables, and cards structured ARS datasets.
+
+Each package retained its modular design, while `gsm.core` ensured workflow control, auditability, and reproducibility across the pipeline.
+
+## Conclusions:
+
+This hybrid `gsm–pharmaverse` case study illustrates the feasibility of an open-source end-to-end clinical reporting pipeline. `gsm.core` serves as the workflow backbone, while pharmaverse packages provide domain-specific transformations for SDTM, ADaM, TFLs, and ARS. Together, they deliver a modular and transparent solution for clinical trial reporting, that is ready for automation. We propose this as a model for future collaboration between workflow frameworks and pharmaverse packages, moving the industry toward interoperable open-source standards.
