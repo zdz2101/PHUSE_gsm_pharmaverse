@@ -4,6 +4,7 @@ library(admiral)
 library(sdtm.oak)
 library(cards)
 library(gtsummary)
+# setwd("path to /PHUSE_gsm_pharmaverse/")
 
 # Prepare list of data of raw-data
 lData <- list(
@@ -11,26 +12,44 @@ lData <- list(
     Raw_VS = read_parquet("./ABC123/RAWDATA/vs.parquet")
 )
 
-# Parse and read in raw data to do any(?) necessary SDTM data
+# ------------------------------------------------------------------------------
+## FOR SDTM
+# Parse and read in raw data to necessary transforms of SDTM data using sdtm.oak
 SDTM_workflows <- gsm.core::MakeWorkflowList(
   strNames = c("DM", "VS"),
   strPath = "./ABC123/workflows/1_RAW_TO_SDTM/",
   strPackage = NULL
 )
 SDTM_mapped <- gsm.core::RunWorkflows(lWorkflows = SDTM_workflows, lData = lData)
-map2(SDTM_mapped, names(SDTM_mapped), function(x,y) arrow::write_parquet(x, paste0("./ABC123/SDTM/",y)))
+# Take Results and save them as parquets in a SDTM folder
+map2(
+  SDTM_mapped,
+  names(SDTM_mapped),
+  function(x,y) arrow::write_parquet(x, paste0("./ABC123/SDTM/",y))
+)
+# ------------------------------------------------------------------------------
+
+
+
+
+# ------------------------------------------------------------------------------
+## FOR ADaM
 
 # Use admiral to create a basic ADSL
-options("yaml.eval.expr" = TRUE) # needs for admiral
+options("yaml.eval.expr" = TRUE) # needs for admiral -- suggest gsm ecoystem write documentation
 ADAM_workflows <- gsm.core::MakeWorkflowList(
   strNames = "ADSL",
   strPath = "./ABC123/workflows/2_SDTM_TO_ADAM/",
   strPackage = NULL
 )
 ADAM_mapped <- gsm.core::RunWorkflows(lWorkflows = ADAM_workflows, lData = SDTM_mapped)
+# Take Results and save them as parquets in a ADaM Folder
 map2(ADAM_mapped, names(ADAM_mapped), function(x,y) arrow::write_parquet(x, paste0("./ABC123/ADaM/",y)))
+# ------------------------------------------------------------------------------
 
-# Turn ADSL into Table 1
+
+# ------------------------------------------------------------------------------
+## FOR TFL
 TFL_workflows <- gsm.core::MakeWorkflowList(
   strNames = "TABLE1",
   strPath = "./ABC123/workflows/3_ADAM_TO_TFL/",
@@ -38,7 +57,12 @@ TFL_workflows <- gsm.core::MakeWorkflowList(
 )
 TFLs <- gsm.core::RunWorkflows(lWorkflows = TFL_workflows, lData = ADAM_mapped)
 TFLs
+# ------------------------------------------------------------------------------
 
+
+
+
+# ------------------------------------------------------------------------------
 # Use ADAM to create RDS
 ARS_workflows <- gsm.core::MakeWorkflowList(
   strNames = "table1_ars",
@@ -47,4 +71,5 @@ ARS_workflows <- gsm.core::MakeWorkflowList(
 )
 ARS_datasets <- gsm.core::RunWorkflows(lWorkflows = ARS_workflows, lData = ADAM_mapped)
 map2(ARS_datasets, names(ARS_datasets), function(x,y) saveRDS(x, paste0("./ABC123/ARS/", y))) # parquet may not be good export
+# ------------------------------------------------------------------------------
 
