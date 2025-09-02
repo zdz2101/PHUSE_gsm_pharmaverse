@@ -4,15 +4,15 @@ format: html
 editor: visual
 ---
 
-# Harmonizing gsm and the Pharmaverse: Orchestrating SDTM, ADaM, ARS, and TFLs in a Unified R Workflow
+# Harmonizing gsm and the Pharmaverse: Orchestrating SDTM, ADaM, TFLs, and ARS in a Unified R Workflow
 
 ## Background:
 
-The `pharmaverse` has quickly established itself as a community standard for open-source clinical reporting, with packages like `sdtm.oak` for SDTM transformation, `admiral` for ADaM derivations, `cards` for Analysis Results Standards (ARS) datasets, and `gtsummary` for TFL generation. In parallel, the `gsm` framework, in particular the `gsm.core`, has matured as a YAML-driven workflow engine providing reproducibility, traceability, and audit-ready pipelines for data science in clinical development. These ecosystems have typically evolved in parallel, but their complementary strengths create an opportunity for integration.
+The `pharmaverse` has quickly established itself as a community standard for open-source clinical reporting, with packages like `sdtm.oak` for SDTM transformation, `admiral` for ADaM derivations, `cards` for Analysis Results Standards (ARS) datasets, and `gtsummary` for TFL generation. In parallel, the `gsm` framework, in particular the `gsm.core` package, has matured as a YAML-driven workflow engine providing reproducibility, traceability, and audit-ready pipelines for data science in clinical development. These ecosystems have typically evolved in parallel, but their complementary strengths create an opportunity for integration.
 
 ## Objective:
 
-We present a hybrid "gsm–pharmaverse" pipeline demonstrating how `gsm.core` can orchestrate `pharmaverse` packages end-to-end, transforming raw eCRF data into SDTM, ADaM, ARS, and finally TFL outputs. This case study highlights how harmonizing these ecosystems can accelerate adoption of open-source R workflows in regulated clinical trial reporting.
+We present a hybrid "gsm–pharmaverse" pipeline demonstrating how `gsm.core` can orchestrate `pharmaverse` packages end-to-end, transforming raw eCRF data into SDTM, ADaM, TFL outputs and even the emerging ARS. This case study highlights how harmonizing these ecosystems can accelerate adoption of open-source R workflows in regulated clinical trial reporting.
 
 ## Methods:
 
