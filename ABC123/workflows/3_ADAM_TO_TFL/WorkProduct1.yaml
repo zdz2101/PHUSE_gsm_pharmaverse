@@ -33,6 +33,6 @@ steps:
     name: rmarkdown::render
     params:
       input: !expr normalizePath(file.path("./ABC123/report_templates/WorkProduct1.Rmd"))
-      output_file: !expr normalizePath(file.path("./ABC123/TFLS/WorkProduct1.html"))
+      output_file: !expr  normalizePath(file.path("./ABC123/TFLS/WorkProduct1.html"))
       envir: !expr new.env(parent = globalenv())
       params: lParams
