@@ -4,6 +4,8 @@ library(admiral)
 library(sdtm.oak)
 library(cards)
 library(gtsummary)
+library(arrow)
+library(purrr)
 # setwd("path to /PHUSE_gsm_pharmaverse/")
 
 # Prepare list of data of raw-data
