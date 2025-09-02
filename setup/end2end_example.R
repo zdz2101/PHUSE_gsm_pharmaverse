@@ -1,3 +1,6 @@
+# this should be all the libraries need to run this as is
+# devtools::install_github("Gilead-BioStats/gsm.core")
+# install.packages(c("dplyr", "admiral", "sdtm.oak", "cards", "gtsummary", "arrow", "purrr"))
 library(gsm.core)
 library(dplyr)
 library(admiral)
