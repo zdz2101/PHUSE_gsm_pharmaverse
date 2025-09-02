@@ -8,6 +8,8 @@ editor: visual
 
 Open-source tools for clinical trial reporting have matured within the pharmaverse, offering modular solutions for transforming data into recognized industry standards. In parallel, the gsm suite of packages provides a flexible, customizable framework for building data pipelines through YAML-driven workflows. We present a gsm–pharmaverse pipeline that integrates key packages—sdtm.oak for SDTM, admiral for ADaM, cards for ARS, and gtsummary for TFLs—into a connected system of workflows, each supporting its respective stage. With YAML control files serving as human-readable checklists, the gsm framework ensures the right tool is applied at the right stage, guiding data seamlessly from raw capture through analysis datasets to final tables. This approach streamlines reporting, reduces manual effort, and ensures every step is both documented and repeatable, strengthening quality oversight and regulatory compliance.
 
+(feel free to add commentary)
+
 # FOR PAPER
 
 # Harmonizing gsm and the Pharmaverse: Orchestrating SDTM, ADaM, TFLs, and ARS in a Unified R Workflow
