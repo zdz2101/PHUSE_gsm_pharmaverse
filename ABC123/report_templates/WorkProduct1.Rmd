@@ -9,6 +9,7 @@ params:
   dfADSL: NA
 ---
 
+# Table 1
 ```{r, echo = FALSE, results='asis'} 
 library(dplyr)
 library(gtsummary)
@@ -21,4 +22,16 @@ table1 <- knitr::knit_child(
     quiet = TRUE
   )
 cat(table1, sep = "\n")
+```
+
+# Table 2
+```{r, echo = FALSE, results = 'asis'}
+table2 <- knitr::knit_child(
+    here::here("ABC123", "report_templates", "Table2.Rmd"),
+    envir = list(
+      table2_params = list(dfADSL = params$dfADSL)
+    ),
+    quiet = TRUE
+  )
+cat(table2, sep = "\n")
 ```

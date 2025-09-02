@@ -1,7 +1,7 @@
 meta:
-  ID: TABLE1
+  ID: WorkProduct1
   Type: TFL
-  Description: Create Basic ADSL
+  Description: Create Basic Work Product/Report which can modularize the tables included
   Priority: 1
 spec:
   Analysis_ADSL:
@@ -33,6 +33,6 @@ steps:
     name: rmarkdown::render
     params:
       input: !expr normalizePath(file.path("./ABC123/report_templates/WorkProduct1.Rmd"))
-      output_file: !expr normalizePath(file.path("./ABC123/TFLS/table1.html"))
+      output_file: !expr normalizePath(file.path("./ABC123/TFLS/WorkProduct1.html"))
       envir: !expr new.env(parent = globalenv())
       params: lParams
