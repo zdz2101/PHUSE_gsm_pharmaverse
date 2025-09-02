@@ -1,0 +1,86 @@
+---
+output:
+  html_document:
+    mathjax: null
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    css: styles.css
+params:
+  dfResults: NA
+  dfMetrics: NA
+  dfGroups: NA
+  lListings: NA
+---
+
+```{r setup, include=FALSE} 
+library(dplyr)
+library(stringr)
+library(tidyr)
+library(gsm.kri)
+library(gsm.qtl)
+library(ggplot2)
+library(plotly)
+library(gt)
+library(htmltools)
+library(knitr)
+
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+
+
+dfResults <- ResultsProcessor(dfResults = params$dfResults, dfMetrics = params$dfMetrics)
+dfGroups <- params$dfGroups
+lListings <- params$lListings
+latest_snapshot = max(dfResults$SnapshotDate)
+```
+
+---
+title: "QTL Overview"
+subtitle: "Study: `r unique(lListings[[1]]$studyid)`"
+date: "Snapshot Date: `r latest_snapshot`"
+---
+
+```{r QTL0001 Eligibility, echo = FALSE, results = 'asis'}
+# Feed and knit just QTL0001 using child rmd support
+if("Analysis_qtl0001" %in% dfResults$MetricID) {
+  qtl0001 <- knitr::knit_child(
+    system.file("report", "QTL0001.Rmd", package = "gsm.qtl"),
+    envir = list(
+      qtl0001_params = list(
+        dfResults = dfResults %>% filter(MetricID == "Analysis_qtl0001"),
+        dfListing = lListings$qtl0001,
+        latest_snapshot = latest_snapshot
+      )
+    ),
+    quiet = TRUE
+  ) %>% suppressMessages %>% suppressWarnings
+  
+  cat(qtl0001, sep = "\n")
+}
+```
+
+```{r QTL0002 Premature Study Discontinuation, echo = FALSE, results = 'asis',}
+# Feed and knit just QTL0002 using child rmd support
+if("Analysis_qtl0002" %in% dfResults$MetricID) {
+  qtl0002 <- knitr::knit_child(
+    system.file("report", "QTL0002.Rmd", package = "gsm.qtl"),
+    envir = list(
+      qtl0002_params = list(
+        dfResults = dfResults %>% filter(MetricID == "Analysis_qtl0002"),
+        dfListing = lListings$qtl0002,
+        latest_snapshot = latest_snapshot
+      )
+    ),
+    quiet = TRUE
+  ) %>% suppressMessages %>% suppressWarnings
+  cat(qtl0002, sep = "\n")
+}
+```
+
+```{r echo=FALSE}
+toggle_toc <- system.file('report', 'lib', 'toggleTOC.js', package = "gsm.kri")
+```
+
+```{js, file={toggle_toc}, echo=FALSE}
+```

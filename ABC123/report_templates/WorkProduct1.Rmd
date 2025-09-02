@@ -1,0 +1,24 @@
+---
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+params:
+  dfADSL: NA
+---
+
+```{r, echo = FALSE, results='asis'} 
+library(dplyr)
+library(gtsummary)
+
+table1 <- knitr::knit_child(
+    here::here("ABC123", "report_templates", "Table1.Rmd"),
+    envir = list(
+      table1_params = list(dfADSL = params$dfADSL)
+    ),
+    quiet = TRUE
+  )
+cat(table1, sep = "\n")
+```

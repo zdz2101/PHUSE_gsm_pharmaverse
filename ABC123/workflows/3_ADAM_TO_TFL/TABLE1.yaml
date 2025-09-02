@@ -14,14 +14,25 @@ spec:
     BMI:
       type: numeric
 steps:
-  - output: table1
-    name: gtsummary::tbl_summary
+  # - output: table1
+  #   name: gtsummary::tbl_summary
+  #   params:
+  #     data: Analysis_ADSL
+  #     include:
+  #       - AGE
+  #       - SEX
+  #       - BMI
+  #     type:
+  #       - !expr AGE ~ 'continuous'
+  #       - !expr BMI ~ 'continuous'
+  - output: lParams
+    name: list
     params:
-      data: Analysis_ADSL
-      include:
-        - AGE
-        - SEX
-        - BMI
-      type:
-        - !expr AGE ~ 'continuous'
-        - !expr BMI ~ 'continuous'
+      'dfADSL': Analysis_ADSL
+  - output: table1
+    name: rmarkdown::render
+    params:
+      input: !expr normalizePath(file.path("./ABC123/report_templates/WorkProduct1.Rmd"))
+      output_file: !expr normalizePath(file.path("./ABC123/TFLS/table1.html"))
+      envir: !expr new.env(parent = globalenv())
+      params: lParams
