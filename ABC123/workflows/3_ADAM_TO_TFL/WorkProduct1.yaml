@@ -32,7 +32,7 @@ steps:
   - output: table1
     name: rmarkdown::render
     params:
-      input: !expr normalizePath(file.path("./ABC123/report_templates/WorkProduct1.Rmd"))
-      output_file: !expr  normalizePath(file.path("./ABC123/TFLS/WorkProduct1.html"))
+      input: !expr  here::here("ABC123", "report_templates", "WorkProduct1.Rmd")
+      output_file: !expr   here::here("ABC123", "TFLS", "WorkProduct1.html")
       envir: !expr new.env(parent = globalenv())
       params: lParams
