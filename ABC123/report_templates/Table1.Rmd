@@ -1,0 +1,11 @@
+---
+title: "Table1"
+---
+
+```{r, echo=FALSE, results='asis'}
+table1_params$dfADSL %>% 
+  gtsummary::tbl_summary(
+    include = c(AGE, SEX, BMI), 
+    type = list(AGE = "continuous", BMI = "continuous")
+  )
+```

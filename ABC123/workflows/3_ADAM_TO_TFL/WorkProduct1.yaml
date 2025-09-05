@@ -1,0 +1,38 @@
+meta:
+  ID: WorkProduct1
+  Type: TFL
+  Description: Create Basic Work Product/Report which can modularize the tables included
+  Priority: 1
+spec:
+  Analysis_ADSL:
+    USUBJID:
+      type: character
+    AGE:
+      type: numeric
+    SEX:
+      type: character
+    BMI:
+      type: numeric
+steps:
+  # - output: table1
+  #   name: gtsummary::tbl_summary
+  #   params:
+  #     data: Analysis_ADSL
+  #     include:
+  #       - AGE
+  #       - SEX
+  #       - BMI
+  #     type:
+  #       - !expr AGE ~ 'continuous'
+  #       - !expr BMI ~ 'continuous'
+  - output: lParams
+    name: list
+    params:
+      'dfADSL': Analysis_ADSL
+  - output: table1
+    name: rmarkdown::render
+    params:
+      input: !expr  here::here("ABC123", "report_templates", "WorkProduct1.Rmd")
+      output_file: !expr   here::here("ABC123", "TFLS", "WorkProduct1.html")
+      envir: !expr new.env(parent = globalenv())
+      params: lParams
