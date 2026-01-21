@@ -1,0 +1,35 @@
+meta:
+  ID: SDTM.VS
+  Type: Mapped
+  Description: Transform Raw VS to SDTM VS following sdtm.oak article
+  Priority: 1
+spec:
+  # Read in data
+  vs_raw:
+    _all:
+      required: true
+  study_ct:
+    _all:
+      required: true
+steps:
+  # Extract ou
+  - output: vs_raw
+    name: sdtm.oak::generate_oak_id_vars
+    params:
+      raw_dat: vs_raw
+      pat_var: "PATNUM"
+      raw_src: "vitals"
+  - output: vs_sysbp
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "SYS_BP"
+      tgt_var: "VSTESTCD"
+      tgt_val: "SYSBP"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_sysbp_filt
+    name: gsm.core::RunQuery
+    params:
+      df: vs_sysbp
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
