@@ -1,5 +1,7 @@
 library(dplyr)
 library(sdtm.oak)
+options("yaml.eval.expr" = TRUE) # needs for admiral -- suggest gsm ecoystem write documentation
+
 
 # Prepare list of data of raw-data
 lData <- list(
