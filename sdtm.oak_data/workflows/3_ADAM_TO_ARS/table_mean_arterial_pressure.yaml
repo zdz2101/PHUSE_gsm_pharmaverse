@@ -1,0 +1,21 @@
+meta:
+  ID: table_mean_arterial_pressure
+  Type: ars
+  Description: Create Basic ADSL
+  Priority: 1
+spec:
+  Analysis_ADAM.ADVS:
+    _all:
+      required: true
+steps:
+  - output: predose_visit1_map
+    name: gsm.core::RunQuery
+    params:
+      df: Analysis_ADAM.ADVS
+      strQuery: "SELECT * FROM df WHERE PARAMCD = 'MAP' AND VISIT = 'VISIT1' AND VSTPT = 'PREDOSE'"
+  - output: table_predose_visit1_map
+    name: cards::ard_summary
+    params:
+      data: predose_visit1_map
+      variables:
+        - AVAL

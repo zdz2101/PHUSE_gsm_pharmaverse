@@ -1,0 +1,26 @@
+meta:
+  ID: WorkProduct1
+  Type: TFL
+  Description: Create Basic Work Product/Report which can modularize the tables included
+  Priority: 1
+spec:
+  Analysis_ADAM.ADVS:
+    _all:
+      required: true
+steps:
+  - output: filtered_Analysis_ADVS
+    name: gsm.core::RunQuery
+    params:
+      df: Analysis_ADAM.ADVS
+      strQuery: "SELECT USUBJID, VISIT, PARAMCD, AVAL FROM df WHERE VISIT = 'SCREENING' AND PARAMCD = 'MAP'"
+  - output: lParams
+    name: list
+    params:
+      'dfADVS':  filtered_Analysis_ADVS
+  - output: table1
+    name: rmarkdown::render
+    params:
+      input: !expr  here::here("sdtm.oak_data", "report_templates", "WorkProduct1.Rmd")
+      output_file: !expr   here::here("sdtm.oak_data", "TFLS", "WorkProduct1.html")
+      envir: !expr new.env(parent = globalenv())
+      params: lParams

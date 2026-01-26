@@ -1,0 +1,415 @@
+meta:
+  ID: SDTM.VS
+  Type: Mapped
+  Description: Transform Raw VS to SDTM VS following sdtm.oak article
+  Priority: 1
+spec:
+  # Read in data
+  vs_raw:
+    _all:
+      required: true
+  study_ct:
+    _all:
+      required: true
+steps:
+  # Create oak_id_vars
+  - output: vs_raw
+    name: sdtm.oak::generate_oak_id_vars
+    params:
+      raw_dat: vs_raw
+      pat_var: "PATNUM"
+      raw_src: "vitals"
+  # Map topic variable SYSBP and its qualifiers.
+  - output: vs_sysbp
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "SYS_BP"
+      tgt_var: "VSTESTCD"
+      tgt_val: "SYSBP"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_sysbp
+    name: gsm.core::RunQuery
+    params:
+      df: vs_sysbp
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  # Map topic variable SYSBP and its qualifiers.
+  - output: vs_sysbp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_sysbp
+      raw_dat: vs_raw
+      raw_var: "SYS_BP"
+      tgt_var: "VSTEST"
+      tgt_val: "Systolic Blood Pressure"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+  - output: vs_sysbp
+    name: sdtm.oak::assign_no_ct
+    params:
+      tgt_dat: vs_sysbp
+      raw_dat:  vs_raw
+      raw_var: "SYS_BP"
+      tgt_var: "VSORRES"
+  - output: vs_sysbp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_sysbp
+      raw_dat: vs_raw
+      raw_var: "SYS_BP"
+      tgt_var: "VSORRESU"
+      tgt_val: "mmHg"
+      ct_spec: study_ct
+      ct_clst: "C66770"
+  - output: vs_sysbp
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs_sysbp
+      raw_dat: vs_raw
+      raw_var: "SUBPOS"
+      tgt_var: "VSPOS"
+      ct_spec: study_ct
+      ct_clst: "C71148"
+
+  # Map topic variable DIABP and its qualifiers.
+  - output: vs_diabp
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "DIA_BP"
+      tgt_var: "VSTESTCD"
+      tgt_val: "DIABP"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_diabp
+    name: gsm.core::RunQuery
+    params:
+      df: vs_diabp
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  - output: vs_diabp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_diabp
+      raw_dat: vs_raw
+      raw_var: "DIA_BP"
+      tgt_var: "VSTEST"
+      tgt_val: "Diastolic Blood Pressure"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+  - output: vs_diabp
+    name: sdtm.oak::assign_no_ct
+    params:
+      tgt_dat: vs_diabp
+      raw_dat: vs_raw
+      raw_var: "DIA_BP"
+      tgt_var: "VSORRES"
+  - output: vs_diabp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_diabp
+      raw_dat: vs_raw
+      raw_var: "DIA_BP"
+      tgt_var: "VSORRESU"
+      tgt_val: "mmHg"
+      ct_spec: study_ct
+      ct_clst: "C66770"
+  - output: vs_diabp
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs_diabp
+      raw_dat: vs_raw
+      raw_var: "SUBPOS"
+      tgt_var: "VSPOS"
+      ct_spec: study_ct
+      ct_clst: "C71148"
+
+  - output: vs_pulse
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "PULSE"
+      tgt_var: "VSTESTCD"
+      tgt_val: "PULSE"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_pulse
+    name: gsm.core::RunQuery
+    params:
+      df: vs_pulse
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  - output: vs_pulse
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_pulse
+      raw_dat: vs_raw
+      raw_var: "PULSE"
+      tgt_var: "VSTEST"
+      tgt_val: "Pulse Rate"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+  - output: vs_pulse
+    name: sdtm.oak::assign_no_ct
+    params:
+      tgt_dat: vs_pulse
+      raw_dat: vs_raw
+      raw_var: "PULSE"
+      tgt_var: "VSORRES"
+  - output: vs_pulse
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_pulse
+      raw_dat: vs_raw
+      raw_var: "PULSE"
+      tgt_var: "VSORRESU"
+      tgt_val: "beats/min"
+      ct_spec: study_ct
+      ct_clst: "C66770"
+
+  - output: vs_resp
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "RESPRT"
+      tgt_var: "VSTESTCD"
+      tgt_val: "RESP"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_resp
+    name: gsm.core::RunQuery
+    params:
+      df: vs_resp
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  - output: vs_resp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_resp
+      raw_dat: vs_raw
+      raw_var: "RESPRT"
+      tgt_var: "VSTEST"
+      tgt_val: "Respiratory Rate"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+  - output: vs_resp
+    name: sdtm.oak::assign_no_ct
+    params:
+      tgt_dat: vs_resp
+      raw_dat: vs_raw
+      raw_var: "RESPRT"
+      tgt_var: "VSORRES"
+  - output: vs_resp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_resp
+      raw_dat: vs_raw
+      raw_var: "RESPRT"
+      tgt_var: "VSORRESU"
+      tgt_val: "breaths/min"
+      ct_spec: study_ct
+      ct_clst: "C66770"
+
+  - output: vs_temp
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "TEMP"
+      tgt_var: "VSTESTCD"
+      tgt_val: "TEMP"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_temp
+    name: gsm.core::RunQuery
+    params:
+      df: vs_temp
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  - output: vs_temp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_temp
+      raw_dat: vs_raw
+      raw_var: "TEMP"
+      tgt_var: "VSTEST"
+      tgt_val: "Temperature"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+  - output: vs_temp
+    name: sdtm.oak::assign_no_ct
+    params:
+      tgt_dat: vs_temp
+      raw_dat: vs_raw
+      raw_var: "TEMP"
+      tgt_var: "VSORRES"
+  - output: vs_temp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_temp
+      raw_dat: vs_raw
+      raw_var: "TEMP"
+      tgt_var: "VSORRESU"
+      tgt_val: "C"
+      ct_spec: study_ct
+      ct_clst: "C66770"
+  - output: vs_temp
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs_temp
+      raw_dat: vs_raw
+      raw_var: "TEMPLOC"
+      tgt_var: "VSLOC"
+      ct_spec: study_ct
+      ct_clst: "C74456"
+
+  - output: vs_oxysat
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "OXY_SAT"
+      tgt_var: "VSTESTCD"
+      tgt_val: "OXYSAT"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_oxysat
+    name: gsm.core::RunQuery
+    params:
+      df: vs_oxysat
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  - output: vs_oxysat
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_oxysat
+      raw_dat: vs_raw
+      raw_var: "OXY_SAT"
+      tgt_var: "VSTEST"
+      tgt_val: "Oxygen Saturation"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+  - output: vs_oxysat
+    name: sdtm.oak::assign_no_ct
+    params:
+      tgt_dat: vs_oxysat
+      raw_dat: vs_raw
+      raw_var: "OXY_SAT"
+      tgt_var: "VSORRES"
+  - output: vs_oxysat
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_oxysat
+      raw_dat: vs_raw
+      raw_var: "OXY_SAT"
+      tgt_var: "VSORRESU"
+      tgt_val: "%"
+      ct_spec: study_ct
+      ct_clst: "C66770"
+  - output: vs_oxysat
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs_oxysat
+      raw_dat: vs_raw
+      raw_var: "LAT"
+      tgt_var: "VSLAT"
+      ct_spec: study_ct
+      ct_clst: "C99073"
+  - output: vs_oxysat
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs_oxysat
+      raw_dat: vs_raw
+      raw_var: "LOC"
+      tgt_var: "VSLOC"
+      ct_spec: study_ct
+      ct_clst: "C74456"
+
+  - output: vs_raw_asmntdn_cond
+    name: sdtm.oak::condition_add
+    params:
+      dat: vs_raw
+      '...': !expr rlang::expr(ASMNTDN == 1L)
+  - output: vs_vsall
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw_asmntdn_cond
+      raw_var: "ASMNTDN"
+      tgt_var: "VSTESTCD"
+      tgt_val: "VSALL"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_vsall
+    name: gsm.core::RunQuery
+    params:
+      df: vs_vsall
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  - output: vs_vsall
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_vsall
+      raw_dat: vs_raw
+      raw_var: "ASMNTDN"
+      tgt_var: "VSTEST"
+      tgt_val: "Vital Signs"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+
+  # Combine all the topic variables into a single data frame and map qualifiers
+  # applicable to all topic variables
+  - output: vs
+    name: dplyr::bind_rows
+    params:
+      vs_vsall: vs_vsall
+      vs_sysbp: vs_sysbp
+      vs_diabp: vs_diabp
+      vs_pulse: vs_pulse
+      vs_resp: vs_resp
+      vs_temp: vs_temp
+      vs_oxysat: vs_oxysat
+  - output: vs
+    name: sdtm.oak::assign_datetime
+    params:
+      tgt_dat: vs
+      raw_dat: vs_raw
+      raw_var: !expr rlang::expr(c("VTLD", "VTLTM"))
+      tgt_var: "VSDTC"
+      raw_fmt: !expr rlang::expr(c(list(c("d-m-y", "dd-mmm-yyyy")), "H:M"))
+  - output: vs
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs
+      raw_dat: vs_raw
+      raw_var: "TMPTC"
+      tgt_var: "VSTPT"
+      ct_spec: study_ct
+      ct_clst: "TPT"
+  - output: vs
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs
+      raw_dat: vs_raw
+      raw_var: "TMPTC"
+      tgt_var: "VSTPTNUM"
+      ct_spec: study_ct
+      ct_clst: "TPTNUM"
+  - output: vs
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs
+      raw_dat: vs_raw
+      raw_var: "INSTANCE"
+      tgt_var: "VISIT"
+      ct_spec: study_ct
+      ct_clst: "VISIT"
+  - output: vs
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs
+      raw_dat: vs_raw
+      raw_var: "INSTANCE"
+      tgt_var: "VISITNUM"
+      ct_spec: study_ct
+      ct_clst: "VISITNUM"
+  - output: vs
+    name: dplyr::mutate
+    params:
+      '.data': vs
+      STUDYID: 'test_study'
+      DOMAIN: 'VS'
+      VSCAT: 'VITAL SIGNS'
+      USUBJID: !expr rlang::expr(paste0("test_study", "-", .data$patient_number))

@@ -1,0 +1,34 @@
+meta:
+  ID: ADAM.ADVS
+  Type: Analysis
+  Description: Create Basic ADSL
+  Priority: 1
+spec:
+  Mapped_SDTM.DM:
+    _all:
+      required: true
+  Mapped_SDTM.VS:
+    _all:
+      required: true
+steps:
+  - output: initial_advs
+    name: admiral::derive_vars_merged
+    params:
+      dataset: Mapped_SDTM.VS
+      dataset_add: Mapped_SDTM.DM
+      new_vars: !expr exprs(TRT01A)
+      by_vars: !expr exprs(STUDYID, USUBJID)
+  - output: advs
+    name: dplyr::mutate
+    params:
+      .data: initial_advs
+      PARAMCD: !expr rlang::expr(.data[["VSTESTCD"]])
+      AVAL: !expr rlang::expr(.data[["VSORRES"]])
+  - output: advs
+    name: admiral::derive_param_map
+    params:
+      dataset: advs
+      by_vars: !expr exprs(STUDYID, USUBJID, TRT01A, VSDTC, VISIT, VISITNUM, VSTPT, VSTPTNUM)
+      sysbp_code: 'SYSBP'
+      diabp_code: 'DIABP'
+      get_unit_expr: !expr rlang::expr(.data[["VSORRESU"]])

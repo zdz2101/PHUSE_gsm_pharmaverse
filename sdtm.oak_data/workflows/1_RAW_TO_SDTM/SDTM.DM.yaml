@@ -1,0 +1,17 @@
+meta:
+  ID: SDTM.DM
+  Type: Mapped
+  Description: Transform Raw DM to SDTM DM
+  Priority: 1
+spec:
+  dm_raw:
+    STUDYID:
+      type: character
+    USUBJID:
+      type: character
+steps:
+  - output: dm
+    name: gsm.core::RunQuery
+    params:
+      df: dm_raw
+      strQuery: "SELECT STUDYID, USUBJID, 'DRUG X' as TRT01A FROM df"

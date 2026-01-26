@@ -1,0 +1,25 @@
+---
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+params:
+  dfADVS: NA
+---
+
+# Table 1
+```{r, echo = FALSE, results='asis'} 
+library(dplyr)
+library(gtsummary)
+
+table1 <- knitr::knit_child(
+    here::here("sdtm.oak_data", "report_templates", "Table1.Rmd"),
+    envir = list(
+      table1_params = list(dfADVS = params$dfADVS)
+    ),
+    quiet = TRUE
+  )
+cat(table1, sep = "\n")
+```

@@ -1,0 +1,11 @@
+---
+title: "Table1"
+---
+
+```{r, echo=FALSE, results='asis'}
+table1_params$dfADVS %>% 
+  gtsummary::tbl_summary(
+    include = c(AVAL), 
+    type = list(AVAL = "continuous")
+  )
+```
