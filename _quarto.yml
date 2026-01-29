@@ -3,16 +3,16 @@ project:
   render:
     - "*.qmd"
 website:
-  title: "phuse-us-gsm-pharmaverse-2026"
+  title: "GSM-Pharmaverse"
   site-url: https://zdz2101.github.io/PHUSE_gsm_pharmaverse
   repo-url: https://github.com/zdz2101/PHUSE_gsm_pharmaverse
   repo-branch: main
   navbar:
     left:
       - href: index.qmd
-        text: Home
+        text: Overview
       - href: gsm_SDTM_example.qmd
-        text: Using gsm with sdtm.oak
+        text: gsm & sdtm.oak
     right:
       - icon: github
         href: https://github.com/zdz2101/PHUSE_gsm_pharmaverse

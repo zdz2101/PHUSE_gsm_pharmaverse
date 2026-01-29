@@ -1,10 +1,8 @@
 ---
-title: "Harmonizing gsm-pharmaverse"
+title: "Harmonizing the gsm and pharmaverse ecosystems"
 format: html
 editor: visual
 ---
-
-# FOR PAPER
 
 ## Background:
 
