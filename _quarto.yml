@@ -2,6 +2,9 @@ project:
   type: website
   render:
     - "*.qmd"
+publish:
+  gh-pages: true
+
 website:
   title: "GSM-Pharmaverse"
   site-url: https://zdz2101.github.io/PHUSE_gsm_pharmaverse
