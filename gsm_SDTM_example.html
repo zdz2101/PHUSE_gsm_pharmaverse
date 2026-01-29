@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>gsm_SDTM_example – phuse-us-gsm-pharmaverse-2026</title>
+<title>Incorporating sdtm.oak – GSM-Pharmaverse</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -104,6 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -114,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">phuse-us-gsm-pharmaverse-2026</span>
+    <span class="navbar-title">GSM-Pharmaverse</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -125,11 +126,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
+<span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./gsm_SDTM_example.html" aria-current="page"> 
-<span class="menu-text">Using gsm with sdtm.oak</span></a>
+<span class="menu-text">gsm &amp; sdtm.oak</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -155,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">gsm_SDTM_example</h1>
+<h1 class="title">Incorporating <code>sdtm.oak</code></h1>
 </div>
 
 
@@ -172,2098 +173,2947 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="incorporating-sdtm.oak" class="level1">
-<h1>Incorporating <code>sdtm.oak</code></h1>
+<section id="prepare-list-of-data-of-raw-data" class="level1">
+<h1>Prepare list of data of raw-data</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>lData <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dm_raw =</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">"raw_data/dm.csv"</span>, <span class="at">package =</span> <span class="st">"sdtm.oak"</span>)),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">vs_raw =</span>  <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">"raw_data/vitals_raw_data.csv"</span>, <span class="at">package =</span> <span class="st">"sdtm.oak"</span>)),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">study_ct =</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">"raw_data/sdtm_ct.csv"</span>, <span class="at">package =</span> <span class="st">"sdtm.oak"</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
+<details>
+<summary>
+Show Raw DM preview (first 6 rows)
+</summary>
+<div class="cell">
+<div class="cell-output-display">
+<div id="omgjsvvvtn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#omgjsvvvtn table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
+#omgjsvvvtn thead, #omgjsvvvtn tbody, #omgjsvvvtn tfoot, #omgjsvvvtn tr, #omgjsvvvtn td, #omgjsvvvtn th {
+  border-style: none;
+}
 
-    intersect, setdiff, setequal, union</code></pre>
+#omgjsvvvtn p {
+  margin: 0;
+  padding: 0;
+}
+
+#omgjsvvvtn .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#omgjsvvvtn .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#omgjsvvvtn .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#omgjsvvvtn .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#omgjsvvvtn .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#omgjsvvvtn .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#omgjsvvvtn .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#omgjsvvvtn .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#omgjsvvvtn .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#omgjsvvvtn .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#omgjsvvvtn .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#omgjsvvvtn .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#omgjsvvvtn .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#omgjsvvvtn .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#omgjsvvvtn .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#omgjsvvvtn .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#omgjsvvvtn .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#omgjsvvvtn .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#omgjsvvvtn .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#omgjsvvvtn .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#omgjsvvvtn .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#omgjsvvvtn .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#omgjsvvvtn .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#omgjsvvvtn .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#omgjsvvvtn .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#omgjsvvvtn .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#omgjsvvvtn .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#omgjsvvvtn .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#omgjsvvvtn .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#omgjsvvvtn .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#omgjsvvvtn .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#omgjsvvvtn .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#omgjsvvvtn .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#omgjsvvvtn .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#omgjsvvvtn .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#omgjsvvvtn .gt_left {
+  text-align: left;
+}
+
+#omgjsvvvtn .gt_center {
+  text-align: center;
+}
+
+#omgjsvvvtn .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#omgjsvvvtn .gt_font_normal {
+  font-weight: normal;
+}
+
+#omgjsvvvtn .gt_font_bold {
+  font-weight: bold;
+}
+
+#omgjsvvvtn .gt_font_italic {
+  font-style: italic;
+}
+
+#omgjsvvvtn .gt_super {
+  font-size: 65%;
+}
+
+#omgjsvvvtn .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#omgjsvvvtn .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#omgjsvvvtn .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#omgjsvvvtn .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#omgjsvvvtn .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#omgjsvvvtn .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#omgjsvvvtn .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#omgjsvvvtn .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#omgjsvvvtn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="STUDYID" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">STUDYID</th>
+<th id="DOMAIN" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">DOMAIN</th>
+<th id="USUBJID" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">USUBJID</th>
+<th id="SUBJID" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">SUBJID</th>
+<th id="RFSTDTC" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">RFSTDTC</th>
+<th id="RFENDTC" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">RFENDTC</th>
+<th id="RFXSTDTC" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">RFXSTDTC</th>
+<th id="RFXENDTC" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">RFXENDTC</th>
+<th id="RFICDTC" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">RFICDTC</th>
+<th id="RFPENDTC" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">RFPENDTC</th>
+<th id="DTHDTC" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">DTHDTC</th>
+<th id="DTHFL" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">DTHFL</th>
+<th id="SITEID" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">SITEID</th>
+<th id="INVID" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">INVID</th>
+<th id="INVNAM" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">INVNAM</th>
+<th id="BRTHDTC" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">BRTHDTC</th>
+<th id="AGE" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">AGE</th>
+<th id="AGEU" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">AGEU</th>
+<th id="SEX" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">SEX</th>
+<th id="RACE" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">RACE</th>
+<th id="ETHNIC" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">ETHNIC</th>
+<th id="ARMCD" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ARMCD</th>
+<th id="ARM" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ARM</th>
+<th id="ACTARMCD" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ACTARMCD</th>
+<th id="ACTARM" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ACTARM</th>
+<th id="COUNTRY" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">COUNTRY</th>
+<th id="DMDTC" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">DMDTC</th>
+<th id="DMDY" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">DMDY</th>
+<th id="RACE1" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">RACE1</th>
+<th id="RACE2" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">RACE2</th>
+<th id="RACE3" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">RACE3</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="STUDYID">test_study</td>
+<td class="gt_row gt_left" headers="DOMAIN">DM</td>
+<td class="gt_row gt_left" headers="USUBJID">test_study-375</td>
+<td class="gt_row gt_left" headers="SUBJID">test_study-375</td>
+<td class="gt_row gt_left" headers="RFSTDTC">1999-04-14T08:36</td>
+<td class="gt_row gt_left" headers="RFENDTC">2013-01-21</td>
+<td class="gt_row gt_left" headers="RFXSTDTC">2023-04-14T08:36</td>
+<td class="gt_row gt_left" headers="RFXENDTC">2021-01-11T07:50</td>
+<td class="gt_row gt_right" headers="RFICDTC">2007-01-15</td>
+<td class="gt_row gt_right" headers="RFPENDTC">2020-04-02</td>
+<td class="gt_row gt_right" headers="DTHDTC">2020-04-02</td>
+<td class="gt_row gt_left" headers="DTHFL">Y</td>
+<td class="gt_row gt_right" headers="SITEID">111111</td>
+<td class="gt_row gt_right" headers="INVID">90009</td>
+<td class="gt_row gt_left" headers="INVNAM">Dr doctor9</td>
+<td class="gt_row gt_left" headers="BRTHDTC">NA</td>
+<td class="gt_row gt_right" headers="AGE">NA</td>
+<td class="gt_row gt_left" headers="AGEU">NA</td>
+<td class="gt_row gt_left" headers="SEX">F</td>
+<td class="gt_row gt_left" headers="RACE">MULTIPLE</td>
+<td class="gt_row gt_left" headers="ETHNIC">NA</td>
+<td class="gt_row gt_center" headers="ARMCD">NA</td>
+<td class="gt_row gt_center" headers="ARM">NA</td>
+<td class="gt_row gt_center" headers="ACTARMCD">NA</td>
+<td class="gt_row gt_center" headers="ACTARM">NA</td>
+<td class="gt_row gt_left" headers="COUNTRY">US</td>
+<td class="gt_row gt_center" headers="DMDTC">NA</td>
+<td class="gt_row gt_center" headers="DMDY">NA</td>
+<td class="gt_row gt_left" headers="RACE1">NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER</td>
+<td class="gt_row gt_left" headers="RACE2">WHITE</td>
+<td class="gt_row gt_left" headers="RACE3">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="STUDYID">test_study</td>
+<td class="gt_row gt_left" headers="DOMAIN">DM</td>
+<td class="gt_row gt_left" headers="USUBJID">test_study-376</td>
+<td class="gt_row gt_left" headers="SUBJID">test_study-376</td>
+<td class="gt_row gt_left" headers="RFSTDTC">2001-03-21</td>
+<td class="gt_row gt_left" headers="RFENDTC">2007-05-21</td>
+<td class="gt_row gt_left" headers="RFXSTDTC">2020-03-21</td>
+<td class="gt_row gt_left" headers="RFXENDTC">2017-09-14T18:49</td>
+<td class="gt_row gt_right" headers="RFICDTC">NA</td>
+<td class="gt_row gt_right" headers="RFPENDTC">2011-12-18</td>
+<td class="gt_row gt_right" headers="DTHDTC">2011-12-18</td>
+<td class="gt_row gt_left" headers="DTHFL">NA</td>
+<td class="gt_row gt_right" headers="SITEID">111111</td>
+<td class="gt_row gt_right" headers="INVID">90009</td>
+<td class="gt_row gt_left" headers="INVNAM">Dr doctor9</td>
+<td class="gt_row gt_left" headers="BRTHDTC">1981-02-26T18:07</td>
+<td class="gt_row gt_right" headers="AGE">42</td>
+<td class="gt_row gt_left" headers="AGEU">YEARS</td>
+<td class="gt_row gt_left" headers="SEX">M</td>
+<td class="gt_row gt_left" headers="RACE">MULTIPLE</td>
+<td class="gt_row gt_left" headers="ETHNIC">NOT HISPANIC OR LATINO</td>
+<td class="gt_row gt_center" headers="ARMCD">NA</td>
+<td class="gt_row gt_center" headers="ARM">NA</td>
+<td class="gt_row gt_center" headers="ACTARMCD">NA</td>
+<td class="gt_row gt_center" headers="ACTARM">NA</td>
+<td class="gt_row gt_left" headers="COUNTRY">US</td>
+<td class="gt_row gt_center" headers="DMDTC">NA</td>
+<td class="gt_row gt_center" headers="DMDY">NA</td>
+<td class="gt_row gt_left" headers="RACE1">BLACK OR AFRICAN AMERICAN</td>
+<td class="gt_row gt_left" headers="RACE2">AMERICAN INDIAN OR ALASKA NATIVE</td>
+<td class="gt_row gt_left" headers="RACE3">UNKNOWN</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="STUDYID">test_study</td>
+<td class="gt_row gt_left" headers="DOMAIN">DM</td>
+<td class="gt_row gt_left" headers="USUBJID">test_study-377</td>
+<td class="gt_row gt_left" headers="SUBJID">test_study-377</td>
+<td class="gt_row gt_left" headers="RFSTDTC">1999-03-14</td>
+<td class="gt_row gt_left" headers="RFENDTC">2021-05-05</td>
+<td class="gt_row gt_left" headers="RFXSTDTC">2020-03-14</td>
+<td class="gt_row gt_left" headers="RFXENDTC">2013-08-23T12:37</td>
+<td class="gt_row gt_right" headers="RFICDTC">2015-10-07</td>
+<td class="gt_row gt_right" headers="RFPENDTC">2021-05-05</td>
+<td class="gt_row gt_right" headers="DTHDTC">2019-06-29</td>
+<td class="gt_row gt_left" headers="DTHFL">NA</td>
+<td class="gt_row gt_right" headers="SITEID">111111</td>
+<td class="gt_row gt_right" headers="INVID">90009</td>
+<td class="gt_row gt_left" headers="INVNAM">Dr doctor9</td>
+<td class="gt_row gt_left" headers="BRTHDTC">1968-03-19T04:36</td>
+<td class="gt_row gt_right" headers="AGE">56</td>
+<td class="gt_row gt_left" headers="AGEU">YEARS</td>
+<td class="gt_row gt_left" headers="SEX">NA</td>
+<td class="gt_row gt_left" headers="RACE">MULTIPLE</td>
+<td class="gt_row gt_left" headers="ETHNIC">NOT REPORTED</td>
+<td class="gt_row gt_center" headers="ARMCD">NA</td>
+<td class="gt_row gt_center" headers="ARM">NA</td>
+<td class="gt_row gt_center" headers="ACTARMCD">NA</td>
+<td class="gt_row gt_center" headers="ACTARM">NA</td>
+<td class="gt_row gt_left" headers="COUNTRY">US</td>
+<td class="gt_row gt_center" headers="DMDTC">NA</td>
+<td class="gt_row gt_center" headers="DMDY">NA</td>
+<td class="gt_row gt_left" headers="RACE1">ASIAN</td>
+<td class="gt_row gt_left" headers="RACE2">AMERICAN INDIAN OR ALASKA NATIVE</td>
+<td class="gt_row gt_left" headers="RACE3">UNKNOWN</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="STUDYID">test_study</td>
+<td class="gt_row gt_left" headers="DOMAIN">DM</td>
+<td class="gt_row gt_left" headers="USUBJID">test_study-378</td>
+<td class="gt_row gt_left" headers="SUBJID">test_study-378</td>
+<td class="gt_row gt_left" headers="RFSTDTC">2003-02-06T06:33</td>
+<td class="gt_row gt_left" headers="RFENDTC">2021-04-24T09:06</td>
+<td class="gt_row gt_left" headers="RFXSTDTC">2021-02-06T06:33</td>
+<td class="gt_row gt_left" headers="RFXENDTC">2021-04-24T09:06</td>
+<td class="gt_row gt_right" headers="RFICDTC">2018-10-20</td>
+<td class="gt_row gt_right" headers="RFPENDTC">2017-04-11</td>
+<td class="gt_row gt_right" headers="DTHDTC">2017-04-11</td>
+<td class="gt_row gt_left" headers="DTHFL">NA</td>
+<td class="gt_row gt_right" headers="SITEID">111111</td>
+<td class="gt_row gt_right" headers="INVID">90009</td>
+<td class="gt_row gt_left" headers="INVNAM">Dr doctor9</td>
+<td class="gt_row gt_left" headers="BRTHDTC">1979-09-24</td>
+<td class="gt_row gt_right" headers="AGE">45</td>
+<td class="gt_row gt_left" headers="AGEU">YEARS</td>
+<td class="gt_row gt_left" headers="SEX">M</td>
+<td class="gt_row gt_left" headers="RACE">BLACK OR AFRICAN AMERICAN</td>
+<td class="gt_row gt_left" headers="ETHNIC">HISPANIC OR LATINO</td>
+<td class="gt_row gt_center" headers="ARMCD">NA</td>
+<td class="gt_row gt_center" headers="ARM">NA</td>
+<td class="gt_row gt_center" headers="ACTARMCD">NA</td>
+<td class="gt_row gt_center" headers="ACTARM">NA</td>
+<td class="gt_row gt_left" headers="COUNTRY">US</td>
+<td class="gt_row gt_center" headers="DMDTC">NA</td>
+<td class="gt_row gt_center" headers="DMDY">NA</td>
+<td class="gt_row gt_left" headers="RACE1">NA</td>
+<td class="gt_row gt_left" headers="RACE2">NA</td>
+<td class="gt_row gt_left" headers="RACE3">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="STUDYID">test_study</td>
+<td class="gt_row gt_left" headers="DOMAIN">DM</td>
+<td class="gt_row gt_left" headers="USUBJID">test_study-379</td>
+<td class="gt_row gt_left" headers="SUBJID">test_study-379</td>
+<td class="gt_row gt_left" headers="RFSTDTC">2003-02-06T06:33</td>
+<td class="gt_row gt_left" headers="RFENDTC">2021-04-24T09:06</td>
+<td class="gt_row gt_left" headers="RFXSTDTC">2022-02-06T06:33</td>
+<td class="gt_row gt_left" headers="RFXENDTC">2021-04-24T09:06</td>
+<td class="gt_row gt_right" headers="RFICDTC">2018-10-20</td>
+<td class="gt_row gt_right" headers="RFPENDTC">2017-04-11</td>
+<td class="gt_row gt_right" headers="DTHDTC">2017-04-11</td>
+<td class="gt_row gt_left" headers="DTHFL">Y</td>
+<td class="gt_row gt_right" headers="SITEID">111111</td>
+<td class="gt_row gt_right" headers="INVID">90009</td>
+<td class="gt_row gt_left" headers="INVNAM">Dr doctor9</td>
+<td class="gt_row gt_left" headers="BRTHDTC">1963-09-24</td>
+<td class="gt_row gt_right" headers="AGE">61</td>
+<td class="gt_row gt_left" headers="AGEU">YEARS</td>
+<td class="gt_row gt_left" headers="SEX">M</td>
+<td class="gt_row gt_left" headers="RACE">BLACK OR AFRICAN AMERICAN</td>
+<td class="gt_row gt_left" headers="ETHNIC">HISPANIC OR LATINO</td>
+<td class="gt_row gt_center" headers="ARMCD">NA</td>
+<td class="gt_row gt_center" headers="ARM">NA</td>
+<td class="gt_row gt_center" headers="ACTARMCD">NA</td>
+<td class="gt_row gt_center" headers="ACTARM">NA</td>
+<td class="gt_row gt_left" headers="COUNTRY">US</td>
+<td class="gt_row gt_center" headers="DMDTC">NA</td>
+<td class="gt_row gt_center" headers="DMDY">NA</td>
+<td class="gt_row gt_left" headers="RACE1">NA</td>
+<td class="gt_row gt_left" headers="RACE2">NA</td>
+<td class="gt_row gt_left" headers="RACE3">NA</td>
+</tr>
+</tbody>
+</table>
+
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rlang)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'rlang' was built under R version 4.4.3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sdtm.oak)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'sdtm.oak' was built under R version 4.4.3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="st">"yaml.eval.expr"</span> <span class="ot">=</span> <span class="cn">TRUE</span>) <span class="co"># needs for admiral -- suggest gsm ecoystem write documentation</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare list of data of raw-data</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>lData <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dm_raw =</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">"raw_data/dm.csv"</span>, <span class="at">package =</span> <span class="st">"sdtm.oak"</span>)),</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">vs_raw =</span>  <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">"raw_data/vitals_raw_data.csv"</span>, <span class="at">package =</span> <span class="st">"sdtm.oak"</span>)),</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">study_ct =</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">"raw_data/sdtm_ct.csv"</span>, <span class="at">package =</span> <span class="st">"sdtm.oak"</span>))</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>SDTM_workflows <span class="ot">&lt;-</span> gsm.core<span class="sc">::</span><span class="fu">MakeWorkflowList</span>(</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">strNames =</span> <span class="fu">c</span>(<span class="st">"SDTM.VS"</span>, <span class="st">"SDTM.DM"</span>),</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">strPath =</span> <span class="st">"./sdtm.oak_data/workflows/1_RAW_TO_SDTM/"</span>,</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">strPackage =</span> <span class="cn">NULL</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>SDTM_mapped <span class="ot">&lt;-</span> gsm.core<span class="sc">::</span><span class="fu">RunWorkflows</span>(<span class="at">lWorkflows =</span> SDTM_workflows, <span class="at">lData =</span> lData)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
+</details>
+<details>
+<summary>
+Show Raw VS preview (first 6 rows)
+</summary>
+<div class="cell">
+<div class="cell-output-display">
+<div id="kmvmyqkxuf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kmvmyqkxuf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#kmvmyqkxuf thead, #kmvmyqkxuf tbody, #kmvmyqkxuf tfoot, #kmvmyqkxuf tr, #kmvmyqkxuf td, #kmvmyqkxuf th {
+  border-style: none;
+}
+
+#kmvmyqkxuf p {
+  margin: 0;
+  padding: 0;
+}
+
+#kmvmyqkxuf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kmvmyqkxuf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#kmvmyqkxuf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kmvmyqkxuf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kmvmyqkxuf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kmvmyqkxuf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kmvmyqkxuf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kmvmyqkxuf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kmvmyqkxuf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kmvmyqkxuf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kmvmyqkxuf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kmvmyqkxuf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kmvmyqkxuf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#kmvmyqkxuf .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#kmvmyqkxuf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kmvmyqkxuf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kmvmyqkxuf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kmvmyqkxuf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kmvmyqkxuf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kmvmyqkxuf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#kmvmyqkxuf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#kmvmyqkxuf .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#kmvmyqkxuf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kmvmyqkxuf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#kmvmyqkxuf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#kmvmyqkxuf .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kmvmyqkxuf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kmvmyqkxuf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kmvmyqkxuf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kmvmyqkxuf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kmvmyqkxuf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kmvmyqkxuf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kmvmyqkxuf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kmvmyqkxuf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kmvmyqkxuf .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kmvmyqkxuf .gt_left {
+  text-align: left;
+}
+
+#kmvmyqkxuf .gt_center {
+  text-align: center;
+}
+
+#kmvmyqkxuf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kmvmyqkxuf .gt_font_normal {
+  font-weight: normal;
+}
+
+#kmvmyqkxuf .gt_font_bold {
+  font-weight: bold;
+}
+
+#kmvmyqkxuf .gt_font_italic {
+  font-style: italic;
+}
+
+#kmvmyqkxuf .gt_super {
+  font-size: 65%;
+}
+
+#kmvmyqkxuf .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#kmvmyqkxuf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#kmvmyqkxuf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#kmvmyqkxuf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#kmvmyqkxuf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#kmvmyqkxuf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#kmvmyqkxuf .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#kmvmyqkxuf .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#kmvmyqkxuf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="STUDY" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">STUDY</th>
+<th id="PATNUM" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">PATNUM</th>
+<th id="SUBJSTAT" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">SUBJSTAT</th>
+<th id="SITENM" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">SITENM</th>
+<th id="INSTANCE" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">INSTANCE</th>
+<th id="FORM" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">FORM</th>
+<th id="FORML" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">FORML</th>
+<th id="DATAPGID" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">DATAPGID</th>
+<th id="RECORDID" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">RECORDID</th>
+<th id="RECPOS" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">RECPOS</th>
+<th id="ASMNTDN" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">ASMNTDN</th>
+<th id="TMPTC" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">TMPTC</th>
+<th id="VTLD" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">VTLD</th>
+<th id="VTLTM" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">VTLTM</th>
+<th id="SUBPOS" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">SUBPOS</th>
+<th id="SYS_BP" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">SYS_BP</th>
+<th id="DIA_BP" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">DIA_BP</th>
+<th id="PULSE" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">PULSE</th>
+<th id="RESPRT" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">RESPRT</th>
+<th id="TEMP" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">TEMP</th>
+<th id="TEMPLOC" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">TEMPLOC</th>
+<th id="OXY_SAT" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">OXY_SAT</th>
+<th id="LAT" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">LAT</th>
+<th id="LOC" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">LOC</th>
+<th id="VSO2SRC" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">VSO2SRC</th>
+<th id="NEWS107" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">NEWS107</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="STUDY">Test Study</td>
+<td class="gt_row gt_right" headers="PATNUM">375</td>
+<td class="gt_row gt_left" headers="SUBJSTAT">Randomized</td>
+<td class="gt_row gt_left" headers="SITENM">Test Study</td>
+<td class="gt_row gt_left" headers="INSTANCE">VISIT1</td>
+<td class="gt_row gt_left" headers="FORM">VTLS1</td>
+<td class="gt_row gt_left" headers="FORML">Vital Signs</td>
+<td class="gt_row gt_right" headers="DATAPGID">1752329</td>
+<td class="gt_row gt_right" headers="RECORDID">5734754</td>
+<td class="gt_row gt_right" headers="RECPOS">0</td>
+<td class="gt_row gt_right" headers="ASMNTDN">0</td>
+<td class="gt_row gt_left" headers="TMPTC">Pre-dose</td>
+<td class="gt_row gt_left" headers="VTLD">16-May-15</td>
+<td class="gt_row gt_right" headers="VTLTM">7:25</td>
+<td class="gt_row gt_left" headers="SUBPOS">PRONE</td>
+<td class="gt_row gt_right" headers="SYS_BP">158</td>
+<td class="gt_row gt_right" headers="DIA_BP">92</td>
+<td class="gt_row gt_right" headers="PULSE">63</td>
+<td class="gt_row gt_right" headers="RESPRT">17</td>
+<td class="gt_row gt_right" headers="TEMP">40.48</td>
+<td class="gt_row gt_left" headers="TEMPLOC">SKIN</td>
+<td class="gt_row gt_right" headers="OXY_SAT">98</td>
+<td class="gt_row gt_left" headers="LAT">RIGHT</td>
+<td class="gt_row gt_left" headers="LOC">FINGER</td>
+<td class="gt_row gt_left" headers="VSO2SRC">MASK OXYGEN THERAPY</td>
+<td class="gt_row gt_left" headers="NEWS107">UNRESPONSIVE</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="STUDY">Test Study</td>
+<td class="gt_row gt_right" headers="PATNUM">375</td>
+<td class="gt_row gt_left" headers="SUBJSTAT">Randomized</td>
+<td class="gt_row gt_left" headers="SITENM">Test Study</td>
+<td class="gt_row gt_left" headers="INSTANCE">VISIT1</td>
+<td class="gt_row gt_left" headers="FORM">VTLS1</td>
+<td class="gt_row gt_left" headers="FORML">Vital Signs</td>
+<td class="gt_row gt_right" headers="DATAPGID">8153061</td>
+<td class="gt_row gt_right" headers="RECORDID">3712412</td>
+<td class="gt_row gt_right" headers="RECPOS">1</td>
+<td class="gt_row gt_right" headers="ASMNTDN">0</td>
+<td class="gt_row gt_left" headers="TMPTC">Post-dose</td>
+<td class="gt_row gt_left" headers="VTLD">16-May-15</td>
+<td class="gt_row gt_right" headers="VTLTM">10:25</td>
+<td class="gt_row gt_left" headers="SUBPOS">SEMI-RECUMBENT</td>
+<td class="gt_row gt_right" headers="SYS_BP">94</td>
+<td class="gt_row gt_right" headers="DIA_BP">78</td>
+<td class="gt_row gt_right" headers="PULSE">76</td>
+<td class="gt_row gt_right" headers="RESPRT">20</td>
+<td class="gt_row gt_right" headers="TEMP">36.75</td>
+<td class="gt_row gt_left" headers="TEMPLOC">TYMPANIC MEMBRANE</td>
+<td class="gt_row gt_right" headers="OXY_SAT">99</td>
+<td class="gt_row gt_left" headers="LAT">LEFT</td>
+<td class="gt_row gt_left" headers="LOC">FINGER</td>
+<td class="gt_row gt_left" headers="VSO2SRC">ROOM AIR</td>
+<td class="gt_row gt_left" headers="NEWS107">NEW CONFUSION</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="STUDY">Test Study</td>
+<td class="gt_row gt_right" headers="PATNUM">375</td>
+<td class="gt_row gt_left" headers="SUBJSTAT">Randomized</td>
+<td class="gt_row gt_left" headers="SITENM">Test Study</td>
+<td class="gt_row gt_left" headers="INSTANCE">Screening</td>
+<td class="gt_row gt_left" headers="FORM">VTLS1</td>
+<td class="gt_row gt_left" headers="FORML">Vital Signs</td>
+<td class="gt_row gt_right" headers="DATAPGID">3463516</td>
+<td class="gt_row gt_right" headers="RECORDID">1229594</td>
+<td class="gt_row gt_right" headers="RECPOS">0</td>
+<td class="gt_row gt_right" headers="ASMNTDN">0</td>
+<td class="gt_row gt_left" headers="TMPTC"></td>
+<td class="gt_row gt_left" headers="VTLD">6-May-18</td>
+<td class="gt_row gt_right" headers="VTLTM">2:01</td>
+<td class="gt_row gt_left" headers="SUBPOS">PRONE</td>
+<td class="gt_row gt_right" headers="SYS_BP">117</td>
+<td class="gt_row gt_right" headers="DIA_BP">62</td>
+<td class="gt_row gt_right" headers="PULSE">66</td>
+<td class="gt_row gt_right" headers="RESPRT">15</td>
+<td class="gt_row gt_right" headers="TEMP">29.45</td>
+<td class="gt_row gt_left" headers="TEMPLOC">ORAL CAVITY</td>
+<td class="gt_row gt_right" headers="OXY_SAT">96</td>
+<td class="gt_row gt_left" headers="LAT">LEFT</td>
+<td class="gt_row gt_left" headers="LOC">FINGER</td>
+<td class="gt_row gt_left" headers="VSO2SRC">ROOM AIR</td>
+<td class="gt_row gt_left" headers="NEWS107">VERBAL RESPONSIVE</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="STUDY">Test Study</td>
+<td class="gt_row gt_right" headers="PATNUM">376</td>
+<td class="gt_row gt_left" headers="SUBJSTAT">Randomized</td>
+<td class="gt_row gt_left" headers="SITENM">Test Study</td>
+<td class="gt_row gt_left" headers="INSTANCE">Screening</td>
+<td class="gt_row gt_left" headers="FORM">VTLS1</td>
+<td class="gt_row gt_left" headers="FORML">Vital Signs</td>
+<td class="gt_row gt_right" headers="DATAPGID">8423253</td>
+<td class="gt_row gt_right" headers="RECORDID">9767053</td>
+<td class="gt_row gt_right" headers="RECPOS">0</td>
+<td class="gt_row gt_right" headers="ASMNTDN">1</td>
+<td class="gt_row gt_left" headers="TMPTC"></td>
+<td class="gt_row gt_left" headers="VTLD"></td>
+<td class="gt_row gt_right" headers="VTLTM"></td>
+<td class="gt_row gt_left" headers="SUBPOS"></td>
+<td class="gt_row gt_right" headers="SYS_BP">NA</td>
+<td class="gt_row gt_right" headers="DIA_BP">NA</td>
+<td class="gt_row gt_right" headers="PULSE">NA</td>
+<td class="gt_row gt_right" headers="RESPRT">NA</td>
+<td class="gt_row gt_right" headers="TEMP">NA</td>
+<td class="gt_row gt_left" headers="TEMPLOC"></td>
+<td class="gt_row gt_right" headers="OXY_SAT">NA</td>
+<td class="gt_row gt_left" headers="LAT"></td>
+<td class="gt_row gt_left" headers="LOC"></td>
+<td class="gt_row gt_left" headers="VSO2SRC"></td>
+<td class="gt_row gt_left" headers="NEWS107"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="STUDY">Test Study</td>
+<td class="gt_row gt_right" headers="PATNUM">376</td>
+<td class="gt_row gt_left" headers="SUBJSTAT">Randomized</td>
+<td class="gt_row gt_left" headers="SITENM">Test Study</td>
+<td class="gt_row gt_left" headers="INSTANCE">VISIT1</td>
+<td class="gt_row gt_left" headers="FORM">VTLS1</td>
+<td class="gt_row gt_left" headers="FORML">Vital Signs</td>
+<td class="gt_row gt_right" headers="DATAPGID">1211365</td>
+<td class="gt_row gt_right" headers="RECORDID">1567778</td>
+<td class="gt_row gt_right" headers="RECPOS">0</td>
+<td class="gt_row gt_right" headers="ASMNTDN">0</td>
+<td class="gt_row gt_left" headers="TMPTC">Pre-dose</td>
+<td class="gt_row gt_left" headers="VTLD">23-Oct-08</td>
+<td class="gt_row gt_right" headers="VTLTM">1:19</td>
+<td class="gt_row gt_left" headers="SUBPOS">PRONE</td>
+<td class="gt_row gt_right" headers="SYS_BP">85</td>
+<td class="gt_row gt_right" headers="DIA_BP">68</td>
+<td class="gt_row gt_right" headers="PULSE">73</td>
+<td class="gt_row gt_right" headers="RESPRT">21</td>
+<td class="gt_row gt_right" headers="TEMP">38.25</td>
+<td class="gt_row gt_left" headers="TEMPLOC">AXILLA</td>
+<td class="gt_row gt_right" headers="OXY_SAT">93</td>
+<td class="gt_row gt_left" headers="LAT">RIGHT</td>
+<td class="gt_row gt_left" headers="LOC">FINGER</td>
+<td class="gt_row gt_left" headers="VSO2SRC">ROOM AIR</td>
+<td class="gt_row gt_left" headers="NEWS107">ALERT</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="STUDY">Test Study</td>
+<td class="gt_row gt_right" headers="PATNUM">376</td>
+<td class="gt_row gt_left" headers="SUBJSTAT">Randomized</td>
+<td class="gt_row gt_left" headers="SITENM">Test Study</td>
+<td class="gt_row gt_left" headers="INSTANCE">VISIT1</td>
+<td class="gt_row gt_left" headers="FORM">VTLS1</td>
+<td class="gt_row gt_left" headers="FORML">Vital Signs</td>
+<td class="gt_row gt_right" headers="DATAPGID">5880552</td>
+<td class="gt_row gt_right" headers="RECORDID">7060998</td>
+<td class="gt_row gt_right" headers="RECPOS">0</td>
+<td class="gt_row gt_right" headers="ASMNTDN">0</td>
+<td class="gt_row gt_left" headers="TMPTC">Post-dose</td>
+<td class="gt_row gt_left" headers="VTLD">23-Oct-08</td>
+<td class="gt_row gt_right" headers="VTLTM">3:19</td>
+<td class="gt_row gt_left" headers="SUBPOS">PRONE</td>
+<td class="gt_row gt_right" headers="SYS_BP">126</td>
+<td class="gt_row gt_right" headers="DIA_BP">81</td>
+<td class="gt_row gt_right" headers="PULSE">56</td>
+<td class="gt_row gt_right" headers="RESPRT">18</td>
+<td class="gt_row gt_right" headers="TEMP">38.08</td>
+<td class="gt_row gt_left" headers="TEMPLOC">TYMPANIC MEMBRANE</td>
+<td class="gt_row gt_right" headers="OXY_SAT">93</td>
+<td class="gt_row gt_left" headers="LAT">LEFT</td>
+<td class="gt_row gt_left" headers="LOC">FINGER</td>
+<td class="gt_row gt_left" headers="VSO2SRC">MASK OXYGEN THERAPY</td>
+<td class="gt_row gt_left" headers="NEWS107">PAIN RESPONSIVE</td>
+</tr>
+</tbody>
+</table>
+
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Running 2 Workflows ─────────────────────────────────────────────────────────</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Initializing `Mapped_SDTM.DM` Workflow ──────────────────────────────────────</code></pre>
+</details>
+<details>
+<summary>
+Show Study CT preview (first 6 rows)
+</summary>
+<div class="cell">
+<div class="cell-output-display">
+<div id="bhykigghse" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bhykigghse table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#bhykigghse thead, #bhykigghse tbody, #bhykigghse tfoot, #bhykigghse tr, #bhykigghse td, #bhykigghse th {
+  border-style: none;
+}
+
+#bhykigghse p {
+  margin: 0;
+  padding: 0;
+}
+
+#bhykigghse .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bhykigghse .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#bhykigghse .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bhykigghse .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bhykigghse .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bhykigghse .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bhykigghse .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bhykigghse .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bhykigghse .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bhykigghse .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bhykigghse .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bhykigghse .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bhykigghse .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#bhykigghse .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#bhykigghse .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bhykigghse .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bhykigghse .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bhykigghse .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bhykigghse .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bhykigghse .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#bhykigghse .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#bhykigghse .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#bhykigghse .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bhykigghse .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#bhykigghse .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#bhykigghse .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bhykigghse .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bhykigghse .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bhykigghse .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bhykigghse .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bhykigghse .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bhykigghse .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bhykigghse .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bhykigghse .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bhykigghse .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bhykigghse .gt_left {
+  text-align: left;
+}
+
+#bhykigghse .gt_center {
+  text-align: center;
+}
+
+#bhykigghse .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bhykigghse .gt_font_normal {
+  font-weight: normal;
+}
+
+#bhykigghse .gt_font_bold {
+  font-weight: bold;
+}
+
+#bhykigghse .gt_font_italic {
+  font-style: italic;
+}
+
+#bhykigghse .gt_super {
+  font-size: 65%;
+}
+
+#bhykigghse .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#bhykigghse .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#bhykigghse .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#bhykigghse .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#bhykigghse .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#bhykigghse .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#bhykigghse .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#bhykigghse .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#bhykigghse div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="codelist_code" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">codelist_code</th>
+<th id="term_code" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">term_code</th>
+<th id="term_value" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">term_value</th>
+<th id="collected_value" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">collected_value</th>
+<th id="term_preferred_term" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">term_preferred_term</th>
+<th id="term_synonyms" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">term_synonyms</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="codelist_code">C66726</td>
+<td class="gt_row gt_left" headers="term_code">C25158</td>
+<td class="gt_row gt_left" headers="term_value">CAPSULE</td>
+<td class="gt_row gt_left" headers="collected_value">Capsule</td>
+<td class="gt_row gt_left" headers="term_preferred_term">Capsule Dosage Form</td>
+<td class="gt_row gt_left" headers="term_synonyms">cap</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="codelist_code">C66726</td>
+<td class="gt_row gt_left" headers="term_code">C25394</td>
+<td class="gt_row gt_left" headers="term_value">PILL</td>
+<td class="gt_row gt_left" headers="collected_value">Pill</td>
+<td class="gt_row gt_left" headers="term_preferred_term">Pill Dosage Form</td>
+<td class="gt_row gt_left" headers="term_synonyms"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="codelist_code">C66726</td>
+<td class="gt_row gt_left" headers="term_code">C29167</td>
+<td class="gt_row gt_left" headers="term_value">LOTION</td>
+<td class="gt_row gt_left" headers="collected_value">Lotion</td>
+<td class="gt_row gt_left" headers="term_preferred_term">Lotion Dosage Form</td>
+<td class="gt_row gt_left" headers="term_synonyms"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="codelist_code">C66726</td>
+<td class="gt_row gt_left" headers="term_code">C42887</td>
+<td class="gt_row gt_left" headers="term_value">AEROSOL</td>
+<td class="gt_row gt_left" headers="collected_value">Aerosol</td>
+<td class="gt_row gt_left" headers="term_preferred_term">Aerosol Dosage Form</td>
+<td class="gt_row gt_left" headers="term_synonyms">aer</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="codelist_code">C66726</td>
+<td class="gt_row gt_left" headers="term_code">C42944</td>
+<td class="gt_row gt_left" headers="term_value">INHALANT</td>
+<td class="gt_row gt_left" headers="collected_value">Inhalant</td>
+<td class="gt_row gt_left" headers="term_preferred_term">Inhalant Dosage Form</td>
+<td class="gt_row gt_left" headers="term_synonyms"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="codelist_code">C66726</td>
+<td class="gt_row gt_left" headers="term_code">C42946</td>
+<td class="gt_row gt_left" headers="term_value">INJECTION</td>
+<td class="gt_row gt_left" headers="collected_value">Injection</td>
+<td class="gt_row gt_left" headers="term_preferred_term">Injectable Dosage Form</td>
+<td class="gt_row gt_left" headers="term_synonyms"></td>
+</tr>
+</tbody>
+</table>
+
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Checking data against spec </code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>→ All 1 data.frame(s) in the spec are present in the data: dm_raw</code></pre>
+</details>
+<section id="show-yamls-of-sdtm.oak-transformations" class="level2">
+<h2 class="anchored" data-anchor-id="show-yamls-of-sdtm.oak-transformations">Show YAML’s of sdtm.oak transformations</h2>
+<div class="scrollbox">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>```yaml
+meta:
+  ID: SDTM.DM
+  Type: Mapped
+  Description: Transform Raw DM to SDTM DM
+  Priority: 1
+spec:
+  dm_raw:
+    STUDYID:
+      type: character
+    USUBJID:
+      type: character
+steps:
+  - output: dm
+    name: gsm.core::RunQuery
+    params:
+      df: dm_raw
+      strQuery: "SELECT STUDYID, USUBJID, 'DRUG X' as TRT01A FROM df"
+```</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>→ All specified columns in dm_raw are in the expected format</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>→ All 2 specified column(s) in the spec are present in the data: dm_raw$STUDYID, dm_raw$USUBJID</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
+<div class="scrollbox">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>```yaml
+meta:
+  ID: SDTM.VS
+  Type: Mapped
+  Description: Transform Raw VS to SDTM VS following sdtm.oak article
+  Priority: 1
+spec:
+  # Read in data
+  vs_raw:
+    _all:
+      required: true
+  study_ct:
+    _all:
+      required: true
+steps:
+  # Create oak_id_vars
+  - output: vs_raw
+    name: sdtm.oak::generate_oak_id_vars
+    params:
+      raw_dat: vs_raw
+      pat_var: "PATNUM"
+      raw_src: "vitals"
+  # Map topic variable SYSBP and its qualifiers.
+  - output: vs_sysbp
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "SYS_BP"
+      tgt_var: "VSTESTCD"
+      tgt_val: "SYSBP"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_sysbp
+    name: gsm.core::RunQuery
+    params:
+      df: vs_sysbp
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  # Map topic variable SYSBP and its qualifiers.
+  - output: vs_sysbp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_sysbp
+      raw_dat: vs_raw
+      raw_var: "SYS_BP"
+      tgt_var: "VSTEST"
+      tgt_val: "Systolic Blood Pressure"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+  - output: vs_sysbp
+    name: sdtm.oak::assign_no_ct
+    params:
+      tgt_dat: vs_sysbp
+      raw_dat:  vs_raw
+      raw_var: "SYS_BP"
+      tgt_var: "VSORRES"
+  - output: vs_sysbp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_sysbp
+      raw_dat: vs_raw
+      raw_var: "SYS_BP"
+      tgt_var: "VSORRESU"
+      tgt_val: "mmHg"
+      ct_spec: study_ct
+      ct_clst: "C66770"
+  - output: vs_sysbp
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs_sysbp
+      raw_dat: vs_raw
+      raw_var: "SUBPOS"
+      tgt_var: "VSPOS"
+      ct_spec: study_ct
+      ct_clst: "C71148"
+
+  # Map topic variable DIABP and its qualifiers.
+  - output: vs_diabp
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "DIA_BP"
+      tgt_var: "VSTESTCD"
+      tgt_val: "DIABP"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_diabp
+    name: gsm.core::RunQuery
+    params:
+      df: vs_diabp
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  - output: vs_diabp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_diabp
+      raw_dat: vs_raw
+      raw_var: "DIA_BP"
+      tgt_var: "VSTEST"
+      tgt_val: "Diastolic Blood Pressure"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+  - output: vs_diabp
+    name: sdtm.oak::assign_no_ct
+    params:
+      tgt_dat: vs_diabp
+      raw_dat: vs_raw
+      raw_var: "DIA_BP"
+      tgt_var: "VSORRES"
+  - output: vs_diabp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_diabp
+      raw_dat: vs_raw
+      raw_var: "DIA_BP"
+      tgt_var: "VSORRESU"
+      tgt_val: "mmHg"
+      ct_spec: study_ct
+      ct_clst: "C66770"
+  - output: vs_diabp
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs_diabp
+      raw_dat: vs_raw
+      raw_var: "SUBPOS"
+      tgt_var: "VSPOS"
+      ct_spec: study_ct
+      ct_clst: "C71148"
+
+  - output: vs_pulse
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "PULSE"
+      tgt_var: "VSTESTCD"
+      tgt_val: "PULSE"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_pulse
+    name: gsm.core::RunQuery
+    params:
+      df: vs_pulse
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  - output: vs_pulse
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_pulse
+      raw_dat: vs_raw
+      raw_var: "PULSE"
+      tgt_var: "VSTEST"
+      tgt_val: "Pulse Rate"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+  - output: vs_pulse
+    name: sdtm.oak::assign_no_ct
+    params:
+      tgt_dat: vs_pulse
+      raw_dat: vs_raw
+      raw_var: "PULSE"
+      tgt_var: "VSORRES"
+  - output: vs_pulse
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_pulse
+      raw_dat: vs_raw
+      raw_var: "PULSE"
+      tgt_var: "VSORRESU"
+      tgt_val: "beats/min"
+      ct_spec: study_ct
+      ct_clst: "C66770"
+
+  - output: vs_resp
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "RESPRT"
+      tgt_var: "VSTESTCD"
+      tgt_val: "RESP"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_resp
+    name: gsm.core::RunQuery
+    params:
+      df: vs_resp
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  - output: vs_resp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_resp
+      raw_dat: vs_raw
+      raw_var: "RESPRT"
+      tgt_var: "VSTEST"
+      tgt_val: "Respiratory Rate"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+  - output: vs_resp
+    name: sdtm.oak::assign_no_ct
+    params:
+      tgt_dat: vs_resp
+      raw_dat: vs_raw
+      raw_var: "RESPRT"
+      tgt_var: "VSORRES"
+  - output: vs_resp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_resp
+      raw_dat: vs_raw
+      raw_var: "RESPRT"
+      tgt_var: "VSORRESU"
+      tgt_val: "breaths/min"
+      ct_spec: study_ct
+      ct_clst: "C66770"
+
+  - output: vs_temp
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "TEMP"
+      tgt_var: "VSTESTCD"
+      tgt_val: "TEMP"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_temp
+    name: gsm.core::RunQuery
+    params:
+      df: vs_temp
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  - output: vs_temp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_temp
+      raw_dat: vs_raw
+      raw_var: "TEMP"
+      tgt_var: "VSTEST"
+      tgt_val: "Temperature"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+  - output: vs_temp
+    name: sdtm.oak::assign_no_ct
+    params:
+      tgt_dat: vs_temp
+      raw_dat: vs_raw
+      raw_var: "TEMP"
+      tgt_var: "VSORRES"
+  - output: vs_temp
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_temp
+      raw_dat: vs_raw
+      raw_var: "TEMP"
+      tgt_var: "VSORRESU"
+      tgt_val: "C"
+      ct_spec: study_ct
+      ct_clst: "C66770"
+  - output: vs_temp
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs_temp
+      raw_dat: vs_raw
+      raw_var: "TEMPLOC"
+      tgt_var: "VSLOC"
+      ct_spec: study_ct
+      ct_clst: "C74456"
+
+  - output: vs_oxysat
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw
+      raw_var: "OXY_SAT"
+      tgt_var: "VSTESTCD"
+      tgt_val: "OXYSAT"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_oxysat
+    name: gsm.core::RunQuery
+    params:
+      df: vs_oxysat
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  - output: vs_oxysat
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_oxysat
+      raw_dat: vs_raw
+      raw_var: "OXY_SAT"
+      tgt_var: "VSTEST"
+      tgt_val: "Oxygen Saturation"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+  - output: vs_oxysat
+    name: sdtm.oak::assign_no_ct
+    params:
+      tgt_dat: vs_oxysat
+      raw_dat: vs_raw
+      raw_var: "OXY_SAT"
+      tgt_var: "VSORRES"
+  - output: vs_oxysat
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_oxysat
+      raw_dat: vs_raw
+      raw_var: "OXY_SAT"
+      tgt_var: "VSORRESU"
+      tgt_val: "%"
+      ct_spec: study_ct
+      ct_clst: "C66770"
+  - output: vs_oxysat
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs_oxysat
+      raw_dat: vs_raw
+      raw_var: "LAT"
+      tgt_var: "VSLAT"
+      ct_spec: study_ct
+      ct_clst: "C99073"
+  - output: vs_oxysat
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs_oxysat
+      raw_dat: vs_raw
+      raw_var: "LOC"
+      tgt_var: "VSLOC"
+      ct_spec: study_ct
+      ct_clst: "C74456"
+
+  - output: vs_raw_asmntdn_cond
+    name: sdtm.oak::condition_add
+    params:
+      dat: vs_raw
+      '...': !expr rlang::expr(ASMNTDN == 1L)
+  - output: vs_vsall
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: vs_raw_asmntdn_cond
+      raw_var: "ASMNTDN"
+      tgt_var: "VSTESTCD"
+      tgt_val: "VSALL"
+      ct_spec: study_ct
+      ct_clst: "C66741"
+  - output: vs_vsall
+    name: gsm.core::RunQuery
+    params:
+      df: vs_vsall
+      strQuery: "SELECT * FROM df WHERE VSTESTCD IS NOT NULL"
+  - output: vs_vsall
+    name: sdtm.oak::hardcode_ct
+    params:
+      tgt_dat: vs_vsall
+      raw_dat: vs_raw
+      raw_var: "ASMNTDN"
+      tgt_var: "VSTEST"
+      tgt_val: "Vital Signs"
+      ct_spec: study_ct
+      ct_clst: "C67153"
+
+  # Combine all the topic variables into a single data frame and map qualifiers
+  # applicable to all topic variables
+  - output: vs
+    name: dplyr::bind_rows
+    params:
+      vs_vsall: vs_vsall
+      vs_sysbp: vs_sysbp
+      vs_diabp: vs_diabp
+      vs_pulse: vs_pulse
+      vs_resp: vs_resp
+      vs_temp: vs_temp
+      vs_oxysat: vs_oxysat
+  - output: vs
+    name: sdtm.oak::assign_datetime
+    params:
+      tgt_dat: vs
+      raw_dat: vs_raw
+      raw_var: !expr rlang::expr(c("VTLD", "VTLTM"))
+      tgt_var: "VSDTC"
+      raw_fmt: !expr rlang::expr(c(list(c("d-m-y", "dd-mmm-yyyy")), "H:M"))
+  - output: vs
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs
+      raw_dat: vs_raw
+      raw_var: "TMPTC"
+      tgt_var: "VSTPT"
+      ct_spec: study_ct
+      ct_clst: "TPT"
+  - output: vs
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs
+      raw_dat: vs_raw
+      raw_var: "TMPTC"
+      tgt_var: "VSTPTNUM"
+      ct_spec: study_ct
+      ct_clst: "TPTNUM"
+  - output: vs
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs
+      raw_dat: vs_raw
+      raw_var: "INSTANCE"
+      tgt_var: "VISIT"
+      ct_spec: study_ct
+      ct_clst: "VISIT"
+  - output: vs
+    name: sdtm.oak::assign_ct
+    params:
+      tgt_dat: vs
+      raw_dat: vs_raw
+      raw_var: "INSTANCE"
+      tgt_var: "VISITNUM"
+      ct_spec: study_ct
+      ct_clst: "VISITNUM"
+  - output: vs
+    name: dplyr::mutate
+    params:
+      '.data': vs
+      STUDYID: 'test_study'
+      DOMAIN: 'VS'
+      VSCAT: 'VITAL SIGNS'
+      USUBJID: !expr rlang::expr(paste0("test_study", "-", .data$patient_number))
+```</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 1 of 1: `gsm.core::RunQuery` ──</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 2 parameter(s) for `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ df = dm_raw: Passing lData$dm_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ strQuery = SELECT STUDYID, USUBJID, 'DRUG X' as TRT01A FROM df: No matching data found. Passing 'SELECT STUDYID, USUBJID, 'DRUG X' as TRT01A FROM df' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Creating a new temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ SQL Query complete: 5 rows returned.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Disconnected from temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x3 data.frame saved as `lData$dm`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Returning results from final step: 5x3 data.frame`. ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Completed `Mapped_SDTM.DM` Workflow ─────────────────────────────────────────</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Initializing `Mapped_SDTM.VS` Workflow ──────────────────────────────────────</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Checking data against spec </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>→ All 2 data.frame(s) in the spec are present in the data: vs_raw, study_ct</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>→ No columns specified in the spec. All data.frames are pulling in all available columns.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 1 of 47: `sdtm.oak::generate_oak_id_vars` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 3 parameter(s) for `sdtm.oak::generate_oak_id_vars` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ pat_var = PATNUM: No matching data found. Passing 'PATNUM' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_src = vitals: No matching data found. Passing 'vitals' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::generate_oak_id_vars` </code></pre>
-</div>
+<p>This workflow was designed to mimic and follow this respective <code>sdtm.oak</code> <a href="https://pharmaverse.github.io/sdtm.oak/articles/findings_domain.html">vignette</a>.</p>
+</section>
+</section>
+<section id="run-respective-workflows-to-arrive-at-sdtm-datasets" class="level1">
+<h1>Run Respective Workflows to Arrive at SDTM datasets</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>SDTM_workflows <span class="ot">&lt;-</span> gsm.core<span class="sc">::</span><span class="fu">MakeWorkflowList</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">strNames =</span> <span class="fu">c</span>(<span class="st">"SDTM.VS"</span>, <span class="st">"SDTM.DM"</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">strPath =</span> <span class="st">"./sdtm.oak_data/workflows/1_RAW_TO_SDTM/"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">strPackage =</span> <span class="cn">NULL</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>SDTM_mapped <span class="ot">&lt;-</span> gsm.core<span class="sc">::</span><span class="fu">RunWorkflows</span>(<span class="at">lWorkflows =</span> SDTM_workflows, <span class="at">lData =</span> lData)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Overwriting existing data in `lData`.</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 6x29 data.frame saved as `lData$vs_raw`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 2 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = SYS_BP: No matching data found. Passing 'SYS_BP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTESTCD: No matching data found. Passing 'VSTESTCD' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = SYSBP: No matching data found. Passing 'SYSBP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66741: No matching data found. Passing 'C66741' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 6x4 data.frame saved as `lData$vs_sysbp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 3 of 47: `gsm.core::RunQuery` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 2 parameter(s) for `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ df = vs_sysbp: Passing lData$vs_sysbp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ strQuery = SELECT * FROM df WHERE VSTESTCD IS NOT NULL: No matching data found. Passing 'SELECT * FROM df WHERE VSTESTCD IS NOT NULL' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Creating a new temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ SQL Query complete: 5 rows returned.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Disconnected from temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x4 data.frame saved as `lData$vs_sysbp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 4 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_sysbp: Passing lData$vs_sysbp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = SYS_BP: No matching data found. Passing 'SYS_BP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTEST: No matching data found. Passing 'VSTEST' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = Systolic Blood Pressure: No matching data found. Passing 'Systolic Blood Pressure' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C67153: No matching data found. Passing 'C67153' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x5 data.frame saved as `lData$vs_sysbp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 5 of 47: `sdtm.oak::assign_no_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 4 parameter(s) for `sdtm.oak::assign_no_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_sysbp: Passing lData$vs_sysbp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = SYS_BP: No matching data found. Passing 'SYS_BP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSORRES: No matching data found. Passing 'VSORRES' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_no_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x6 data.frame saved as `lData$vs_sysbp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 6 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_sysbp: Passing lData$vs_sysbp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = SYS_BP: No matching data found. Passing 'SYS_BP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSORRESU: No matching data found. Passing 'VSORRESU' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = mmHg: No matching data found. Passing 'mmHg' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66770: No matching data found. Passing 'C66770' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x7 data.frame saved as `lData$vs_sysbp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 7 of 47: `sdtm.oak::assign_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_sysbp: Passing lData$vs_sysbp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = SUBPOS: No matching data found. Passing 'SUBPOS' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSPOS: No matching data found. Passing 'VSPOS' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C71148: No matching data found. Passing 'C71148' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x8 data.frame saved as `lData$vs_sysbp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 8 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = DIA_BP: No matching data found. Passing 'DIA_BP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTESTCD: No matching data found. Passing 'VSTESTCD' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = DIABP: No matching data found. Passing 'DIABP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66741: No matching data found. Passing 'C66741' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 6x4 data.frame saved as `lData$vs_diabp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 9 of 47: `gsm.core::RunQuery` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 2 parameter(s) for `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ df = vs_diabp: Passing lData$vs_diabp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ strQuery = SELECT * FROM df WHERE VSTESTCD IS NOT NULL: No matching data found. Passing 'SELECT * FROM df WHERE VSTESTCD IS NOT NULL' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Creating a new temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ SQL Query complete: 5 rows returned.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Disconnected from temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x4 data.frame saved as `lData$vs_diabp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 10 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_diabp: Passing lData$vs_diabp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = DIA_BP: No matching data found. Passing 'DIA_BP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTEST: No matching data found. Passing 'VSTEST' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = Diastolic Blood Pressure: No matching data found. Passing 'Diastolic Blood Pressure' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C67153: No matching data found. Passing 'C67153' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x5 data.frame saved as `lData$vs_diabp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 11 of 47: `sdtm.oak::assign_no_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 4 parameter(s) for `sdtm.oak::assign_no_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_diabp: Passing lData$vs_diabp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = DIA_BP: No matching data found. Passing 'DIA_BP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSORRES: No matching data found. Passing 'VSORRES' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_no_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x6 data.frame saved as `lData$vs_diabp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 12 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_diabp: Passing lData$vs_diabp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = DIA_BP: No matching data found. Passing 'DIA_BP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSORRESU: No matching data found. Passing 'VSORRESU' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = mmHg: No matching data found. Passing 'mmHg' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66770: No matching data found. Passing 'C66770' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x7 data.frame saved as `lData$vs_diabp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 13 of 47: `sdtm.oak::assign_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_diabp: Passing lData$vs_diabp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = SUBPOS: No matching data found. Passing 'SUBPOS' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSPOS: No matching data found. Passing 'VSPOS' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C71148: No matching data found. Passing 'C71148' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x8 data.frame saved as `lData$vs_diabp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 14 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = PULSE: No matching data found. Passing 'PULSE' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTESTCD: No matching data found. Passing 'VSTESTCD' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = PULSE: No matching data found. Passing 'PULSE' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66741: No matching data found. Passing 'C66741' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 6x4 data.frame saved as `lData$vs_pulse`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 15 of 47: `gsm.core::RunQuery` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 2 parameter(s) for `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ df = vs_pulse: Passing lData$vs_pulse.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ strQuery = SELECT * FROM df WHERE VSTESTCD IS NOT NULL: No matching data found. Passing 'SELECT * FROM df WHERE VSTESTCD IS NOT NULL' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Creating a new temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ SQL Query complete: 5 rows returned.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Disconnected from temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x4 data.frame saved as `lData$vs_pulse`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 16 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_pulse: Passing lData$vs_pulse.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = PULSE: No matching data found. Passing 'PULSE' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTEST: No matching data found. Passing 'VSTEST' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = Pulse Rate: No matching data found. Passing 'Pulse Rate' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C67153: No matching data found. Passing 'C67153' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x5 data.frame saved as `lData$vs_pulse`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 17 of 47: `sdtm.oak::assign_no_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 4 parameter(s) for `sdtm.oak::assign_no_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_pulse: Passing lData$vs_pulse.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = PULSE: No matching data found. Passing 'PULSE' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSORRES: No matching data found. Passing 'VSORRES' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_no_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x6 data.frame saved as `lData$vs_pulse`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 18 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_pulse: Passing lData$vs_pulse.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = PULSE: No matching data found. Passing 'PULSE' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSORRESU: No matching data found. Passing 'VSORRESU' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = beats/min: No matching data found. Passing 'beats/min' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66770: No matching data found. Passing 'C66770' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x7 data.frame saved as `lData$vs_pulse`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 19 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = RESPRT: No matching data found. Passing 'RESPRT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTESTCD: No matching data found. Passing 'VSTESTCD' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = RESP: No matching data found. Passing 'RESP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66741: No matching data found. Passing 'C66741' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 6x4 data.frame saved as `lData$vs_resp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 20 of 47: `gsm.core::RunQuery` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 2 parameter(s) for `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ df = vs_resp: Passing lData$vs_resp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ strQuery = SELECT * FROM df WHERE VSTESTCD IS NOT NULL: No matching data found. Passing 'SELECT * FROM df WHERE VSTESTCD IS NOT NULL' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Creating a new temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ SQL Query complete: 5 rows returned.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Disconnected from temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x4 data.frame saved as `lData$vs_resp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 21 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_resp: Passing lData$vs_resp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = RESPRT: No matching data found. Passing 'RESPRT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTEST: No matching data found. Passing 'VSTEST' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = Respiratory Rate: No matching data found. Passing 'Respiratory Rate' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C67153: No matching data found. Passing 'C67153' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x5 data.frame saved as `lData$vs_resp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 22 of 47: `sdtm.oak::assign_no_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 4 parameter(s) for `sdtm.oak::assign_no_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_resp: Passing lData$vs_resp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = RESPRT: No matching data found. Passing 'RESPRT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSORRES: No matching data found. Passing 'VSORRES' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_no_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x6 data.frame saved as `lData$vs_resp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 23 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_resp: Passing lData$vs_resp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = RESPRT: No matching data found. Passing 'RESPRT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSORRESU: No matching data found. Passing 'VSORRESU' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = breaths/min: No matching data found. Passing 'breaths/min' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66770: No matching data found. Passing 'C66770' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x7 data.frame saved as `lData$vs_resp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 24 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = TEMP: No matching data found. Passing 'TEMP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTESTCD: No matching data found. Passing 'VSTESTCD' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = TEMP: No matching data found. Passing 'TEMP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66741: No matching data found. Passing 'C66741' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 6x4 data.frame saved as `lData$vs_temp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 25 of 47: `gsm.core::RunQuery` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 2 parameter(s) for `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ df = vs_temp: Passing lData$vs_temp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ strQuery = SELECT * FROM df WHERE VSTESTCD IS NOT NULL: No matching data found. Passing 'SELECT * FROM df WHERE VSTESTCD IS NOT NULL' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Creating a new temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ SQL Query complete: 5 rows returned.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Disconnected from temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x4 data.frame saved as `lData$vs_temp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 26 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_temp: Passing lData$vs_temp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = TEMP: No matching data found. Passing 'TEMP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTEST: No matching data found. Passing 'VSTEST' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = Temperature: No matching data found. Passing 'Temperature' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C67153: No matching data found. Passing 'C67153' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x5 data.frame saved as `lData$vs_temp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 27 of 47: `sdtm.oak::assign_no_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 4 parameter(s) for `sdtm.oak::assign_no_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_temp: Passing lData$vs_temp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = TEMP: No matching data found. Passing 'TEMP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSORRES: No matching data found. Passing 'VSORRES' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_no_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x6 data.frame saved as `lData$vs_temp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 28 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_temp: Passing lData$vs_temp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = TEMP: No matching data found. Passing 'TEMP' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSORRESU: No matching data found. Passing 'VSORRESU' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = C: No matching data found. Passing 'C' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66770: No matching data found. Passing 'C66770' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x7 data.frame saved as `lData$vs_temp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 29 of 47: `sdtm.oak::assign_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_temp: Passing lData$vs_temp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = TEMPLOC: No matching data found. Passing 'TEMPLOC' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSLOC: No matching data found. Passing 'VSLOC' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C74456: No matching data found. Passing 'C74456' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x8 data.frame saved as `lData$vs_temp`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 30 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = OXY_SAT: No matching data found. Passing 'OXY_SAT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTESTCD: No matching data found. Passing 'VSTESTCD' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = OXYSAT: No matching data found. Passing 'OXYSAT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66741: No matching data found. Passing 'C66741' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 6x4 data.frame saved as `lData$vs_oxysat`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 31 of 47: `gsm.core::RunQuery` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 2 parameter(s) for `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ df = vs_oxysat: Passing lData$vs_oxysat.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ strQuery = SELECT * FROM df WHERE VSTESTCD IS NOT NULL: No matching data found. Passing 'SELECT * FROM df WHERE VSTESTCD IS NOT NULL' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Creating a new temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ SQL Query complete: 5 rows returned.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Disconnected from temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x4 data.frame saved as `lData$vs_oxysat`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 32 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_oxysat: Passing lData$vs_oxysat.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = OXY_SAT: No matching data found. Passing 'OXY_SAT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTEST: No matching data found. Passing 'VSTEST' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = Oxygen Saturation: No matching data found. Passing 'Oxygen Saturation' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C67153: No matching data found. Passing 'C67153' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x5 data.frame saved as `lData$vs_oxysat`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 33 of 47: `sdtm.oak::assign_no_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 4 parameter(s) for `sdtm.oak::assign_no_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_oxysat: Passing lData$vs_oxysat.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = OXY_SAT: No matching data found. Passing 'OXY_SAT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSORRES: No matching data found. Passing 'VSORRES' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_no_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x6 data.frame saved as `lData$vs_oxysat`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 34 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_oxysat: Passing lData$vs_oxysat.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = OXY_SAT: No matching data found. Passing 'OXY_SAT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSORRESU: No matching data found. Passing 'VSORRESU' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = %: No matching data found. Passing '%' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66770: No matching data found. Passing 'C66770' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x7 data.frame saved as `lData$vs_oxysat`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 35 of 47: `sdtm.oak::assign_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_oxysat: Passing lData$vs_oxysat.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = LAT: No matching data found. Passing 'LAT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSLAT: No matching data found. Passing 'VSLAT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C99073: No matching data found. Passing 'C99073' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x8 data.frame saved as `lData$vs_oxysat`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 36 of 47: `sdtm.oak::assign_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_oxysat: Passing lData$vs_oxysat.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = LOC: No matching data found. Passing 'LOC' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSLOC: No matching data found. Passing 'VSLOC' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C74456: No matching data found. Passing 'C74456' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 5x9 data.frame saved as `lData$vs_oxysat`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 37 of 47: `sdtm.oak::condition_add` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 2 parameter(s) for `sdtm.oak::condition_add` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ... is of length 3: Parameter is a vector. Passing as is.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::condition_add` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 6x29 data.frame saved as `lData$vs_raw_asmntdn_cond`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 38 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw_asmntdn_cond: Passing lData$vs_raw_asmntdn_cond.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = ASMNTDN: No matching data found. Passing 'ASMNTDN' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTESTCD: No matching data found. Passing 'VSTESTCD' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = VSALL: No matching data found. Passing 'VSALL' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C66741: No matching data found. Passing 'C66741' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 6x4 data.frame saved as `lData$vs_vsall`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 39 of 47: `gsm.core::RunQuery` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 2 parameter(s) for `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ df = vs_vsall: Passing lData$vs_vsall.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ strQuery = SELECT * FROM df WHERE VSTESTCD IS NOT NULL: No matching data found. Passing 'SELECT * FROM df WHERE VSTESTCD IS NOT NULL' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `gsm.core::RunQuery` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Creating a new temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ SQL Query complete: 1 rows returned.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Disconnected from temporary DuckDB connection.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 1x4 data.frame saved as `lData$vs_vsall`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 40 of 47: `sdtm.oak::hardcode_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs_vsall: Passing lData$vs_vsall.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = ASMNTDN: No matching data found. Passing 'ASMNTDN' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTEST: No matching data found. Passing 'VSTEST' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_val = Vital Signs: No matching data found. Passing 'Vital Signs' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = C67153: No matching data found. Passing 'C67153' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::hardcode_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 1x5 data.frame saved as `lData$vs_vsall`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 41 of 47: `dplyr::bind_rows` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 7 parameter(s) for `dplyr::bind_rows` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ vs_vsall = vs_vsall: Passing lData$vs_vsall.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ vs_sysbp = vs_sysbp: Passing lData$vs_sysbp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ vs_diabp = vs_diabp: Passing lData$vs_diabp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ vs_pulse = vs_pulse: Passing lData$vs_pulse.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ vs_resp = vs_resp: Passing lData$vs_resp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ vs_temp = vs_temp: Passing lData$vs_temp.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ vs_oxysat = vs_oxysat: Passing lData$vs_oxysat.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `dplyr::bind_rows` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 31x10 data.frame saved as `lData$vs`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 42 of 47: `sdtm.oak::assign_datetime` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 5 parameter(s) for `sdtm.oak::assign_datetime` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs: Passing lData$vs.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var is of length 3: Parameter is a vector. Passing as is.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSDTC: No matching data found. Passing 'VSDTC' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_fmt is of length 3: Parameter is a vector. Passing as is.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_datetime` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 31x11 data.frame saved as `lData$vs`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 43 of 47: `sdtm.oak::assign_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs: Passing lData$vs.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = TMPTC: No matching data found. Passing 'TMPTC' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTPT: No matching data found. Passing 'VSTPT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = TPT: No matching data found. Passing 'TPT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 31x12 data.frame saved as `lData$vs`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 44 of 47: `sdtm.oak::assign_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs: Passing lData$vs.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = TMPTC: No matching data found. Passing 'TMPTC' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VSTPTNUM: No matching data found. Passing 'VSTPTNUM' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = TPTNUM: No matching data found. Passing 'TPTNUM' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 31x13 data.frame saved as `lData$vs`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 45 of 47: `sdtm.oak::assign_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs: Passing lData$vs.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = INSTANCE: No matching data found. Passing 'INSTANCE' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VISIT: No matching data found. Passing 'VISIT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = VISIT: No matching data found. Passing 'VISIT' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ These terms could not be mapped per the controlled terminology: "VISIT1".</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 31x14 data.frame saved as `lData$vs`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 46 of 47: `sdtm.oak::assign_ct` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 6 parameter(s) for `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ tgt_dat = vs: Passing lData$vs.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ raw_dat = vs_raw: Passing lData$vs_raw.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ raw_var = INSTANCE: No matching data found. Passing 'INSTANCE' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ tgt_var = VISITNUM: No matching data found. Passing 'VISITNUM' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ ct_spec = study_ct: Passing lData$study_ct.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ ct_clst = VISITNUM: No matching data found. Passing 'VISITNUM' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `sdtm.oak::assign_ct` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ These terms could not be mapped per the controlled terminology: "VISIT1".</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 31x15 data.frame saved as `lData$vs`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Workflow Step 47 of 47: `dplyr::mutate` ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Evaluating 5 parameter(s) for `dplyr::mutate` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ .data = vs: Passing lData$vs.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ STUDYID = test_study: No matching data found. Passing 'test_study' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ DOMAIN = VS: No matching data found. Passing 'VS' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ VSCAT = VITAL SIGNS: No matching data found. Passing 'VITAL SIGNS' as a string.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ USUBJID is of length 4: Parameter is a vector. Passing as is.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Calling `dplyr::mutate` </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── 31x19 data.frame saved as `lData$vs`. </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Returning results from final step: 31x19 data.frame`. ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Completed `Mapped_SDTM.VS` Workflow ─────────────────────────────────────────</code></pre>
-</div>
-</div>
+<details>
+<summary>
+Show SDTM.VS (first 6 rows)
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(SDTM_mapped<span class="sc">$</span>Mapped_SDTM.VS) <span class="sc">%&gt;%</span> <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="wcqzdzmnak" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wcqzdzmnak table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#wcqzdzmnak thead, #wcqzdzmnak tbody, #wcqzdzmnak tfoot, #wcqzdzmnak tr, #wcqzdzmnak td, #wcqzdzmnak th {
+  border-style: none;
+}
+
+#wcqzdzmnak p {
+  margin: 0;
+  padding: 0;
+}
+
+#wcqzdzmnak .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wcqzdzmnak .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#wcqzdzmnak .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wcqzdzmnak .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wcqzdzmnak .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wcqzdzmnak .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wcqzdzmnak .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wcqzdzmnak .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wcqzdzmnak .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wcqzdzmnak .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wcqzdzmnak .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wcqzdzmnak .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wcqzdzmnak .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#wcqzdzmnak .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#wcqzdzmnak .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wcqzdzmnak .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wcqzdzmnak .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wcqzdzmnak .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wcqzdzmnak .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wcqzdzmnak .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wcqzdzmnak .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wcqzdzmnak .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#wcqzdzmnak .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wcqzdzmnak .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wcqzdzmnak .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wcqzdzmnak .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wcqzdzmnak .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wcqzdzmnak .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wcqzdzmnak .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wcqzdzmnak .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wcqzdzmnak .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wcqzdzmnak .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wcqzdzmnak .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wcqzdzmnak .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wcqzdzmnak .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wcqzdzmnak .gt_left {
+  text-align: left;
+}
+
+#wcqzdzmnak .gt_center {
+  text-align: center;
+}
+
+#wcqzdzmnak .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wcqzdzmnak .gt_font_normal {
+  font-weight: normal;
+}
+
+#wcqzdzmnak .gt_font_bold {
+  font-weight: bold;
+}
+
+#wcqzdzmnak .gt_font_italic {
+  font-style: italic;
+}
+
+#wcqzdzmnak .gt_super {
+  font-size: 65%;
+}
+
+#wcqzdzmnak .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#wcqzdzmnak .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wcqzdzmnak .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#wcqzdzmnak .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#wcqzdzmnak .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wcqzdzmnak .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wcqzdzmnak .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#wcqzdzmnak .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#wcqzdzmnak div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="oak_id" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">oak_id</th>
+<th id="raw_source" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">raw_source</th>
+<th id="patient_number" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">patient_number</th>
+<th id="VSTESTCD" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">VSTESTCD</th>
+<th id="VSTEST" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">VSTEST</th>
+<th id="VSORRES" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">VSORRES</th>
+<th id="VSORRESU" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">VSORRESU</th>
+<th id="VSPOS" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">VSPOS</th>
+<th id="VSLOC" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">VSLOC</th>
+<th id="VSLAT" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">VSLAT</th>
+<th id="VSDTC" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">VSDTC</th>
+<th id="VSTPT" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">VSTPT</th>
+<th id="VSTPTNUM" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">VSTPTNUM</th>
+<th id="VISIT" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">VISIT</th>
+<th id="VISITNUM" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">VISITNUM</th>
+<th id="STUDYID" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">STUDYID</th>
+<th id="DOMAIN" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">DOMAIN</th>
+<th id="VSCAT" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">VSCAT</th>
+<th id="USUBJID" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">USUBJID</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="oak_id">1</td>
+<td class="gt_row gt_left" headers="raw_source">vitals</td>
+<td class="gt_row gt_right" headers="patient_number">375</td>
+<td class="gt_row gt_left" headers="VSTESTCD">SYSBP</td>
+<td class="gt_row gt_left" headers="VSTEST">Systolic Blood Pressure</td>
+<td class="gt_row gt_right" headers="VSORRES">158.00</td>
+<td class="gt_row gt_left" headers="VSORRESU">mmHg</td>
+<td class="gt_row gt_left" headers="VSPOS">PRONE</td>
+<td class="gt_row gt_left" headers="VSLOC">NA</td>
+<td class="gt_row gt_left" headers="VSLAT">NA</td>
+<td class="gt_row gt_center" headers="VSDTC">2015-05-16T07:25</td>
+<td class="gt_row gt_left" headers="VSTPT">PREDOSE</td>
+<td class="gt_row gt_right" headers="VSTPTNUM">1</td>
+<td class="gt_row gt_left" headers="VISIT">VISIT1</td>
+<td class="gt_row gt_left" headers="VISITNUM">VISIT1</td>
+<td class="gt_row gt_left" headers="STUDYID">test_study</td>
+<td class="gt_row gt_left" headers="DOMAIN">VS</td>
+<td class="gt_row gt_left" headers="VSCAT">VITAL SIGNS</td>
+<td class="gt_row gt_left" headers="USUBJID">test_study-375</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="oak_id">1</td>
+<td class="gt_row gt_left" headers="raw_source">vitals</td>
+<td class="gt_row gt_right" headers="patient_number">375</td>
+<td class="gt_row gt_left" headers="VSTESTCD">DIABP</td>
+<td class="gt_row gt_left" headers="VSTEST">Diastolic Blood Pressure</td>
+<td class="gt_row gt_right" headers="VSORRES">92.00</td>
+<td class="gt_row gt_left" headers="VSORRESU">mmHg</td>
+<td class="gt_row gt_left" headers="VSPOS">PRONE</td>
+<td class="gt_row gt_left" headers="VSLOC">NA</td>
+<td class="gt_row gt_left" headers="VSLAT">NA</td>
+<td class="gt_row gt_center" headers="VSDTC">2015-05-16T07:25</td>
+<td class="gt_row gt_left" headers="VSTPT">PREDOSE</td>
+<td class="gt_row gt_right" headers="VSTPTNUM">1</td>
+<td class="gt_row gt_left" headers="VISIT">VISIT1</td>
+<td class="gt_row gt_left" headers="VISITNUM">VISIT1</td>
+<td class="gt_row gt_left" headers="STUDYID">test_study</td>
+<td class="gt_row gt_left" headers="DOMAIN">VS</td>
+<td class="gt_row gt_left" headers="VSCAT">VITAL SIGNS</td>
+<td class="gt_row gt_left" headers="USUBJID">test_study-375</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="oak_id">1</td>
+<td class="gt_row gt_left" headers="raw_source">vitals</td>
+<td class="gt_row gt_right" headers="patient_number">375</td>
+<td class="gt_row gt_left" headers="VSTESTCD">PULSE</td>
+<td class="gt_row gt_left" headers="VSTEST">Pulse Rate</td>
+<td class="gt_row gt_right" headers="VSORRES">63.00</td>
+<td class="gt_row gt_left" headers="VSORRESU">beats/min</td>
+<td class="gt_row gt_left" headers="VSPOS">NA</td>
+<td class="gt_row gt_left" headers="VSLOC">NA</td>
+<td class="gt_row gt_left" headers="VSLAT">NA</td>
+<td class="gt_row gt_center" headers="VSDTC">2015-05-16T07:25</td>
+<td class="gt_row gt_left" headers="VSTPT">PREDOSE</td>
+<td class="gt_row gt_right" headers="VSTPTNUM">1</td>
+<td class="gt_row gt_left" headers="VISIT">VISIT1</td>
+<td class="gt_row gt_left" headers="VISITNUM">VISIT1</td>
+<td class="gt_row gt_left" headers="STUDYID">test_study</td>
+<td class="gt_row gt_left" headers="DOMAIN">VS</td>
+<td class="gt_row gt_left" headers="VSCAT">VITAL SIGNS</td>
+<td class="gt_row gt_left" headers="USUBJID">test_study-375</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="oak_id">1</td>
+<td class="gt_row gt_left" headers="raw_source">vitals</td>
+<td class="gt_row gt_right" headers="patient_number">375</td>
+<td class="gt_row gt_left" headers="VSTESTCD">RESP</td>
+<td class="gt_row gt_left" headers="VSTEST">Respiratory Rate</td>
+<td class="gt_row gt_right" headers="VSORRES">17.00</td>
+<td class="gt_row gt_left" headers="VSORRESU">breaths/min</td>
+<td class="gt_row gt_left" headers="VSPOS">NA</td>
+<td class="gt_row gt_left" headers="VSLOC">NA</td>
+<td class="gt_row gt_left" headers="VSLAT">NA</td>
+<td class="gt_row gt_center" headers="VSDTC">2015-05-16T07:25</td>
+<td class="gt_row gt_left" headers="VSTPT">PREDOSE</td>
+<td class="gt_row gt_right" headers="VSTPTNUM">1</td>
+<td class="gt_row gt_left" headers="VISIT">VISIT1</td>
+<td class="gt_row gt_left" headers="VISITNUM">VISIT1</td>
+<td class="gt_row gt_left" headers="STUDYID">test_study</td>
+<td class="gt_row gt_left" headers="DOMAIN">VS</td>
+<td class="gt_row gt_left" headers="VSCAT">VITAL SIGNS</td>
+<td class="gt_row gt_left" headers="USUBJID">test_study-375</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="oak_id">1</td>
+<td class="gt_row gt_left" headers="raw_source">vitals</td>
+<td class="gt_row gt_right" headers="patient_number">375</td>
+<td class="gt_row gt_left" headers="VSTESTCD">TEMP</td>
+<td class="gt_row gt_left" headers="VSTEST">Temperature</td>
+<td class="gt_row gt_right" headers="VSORRES">40.48</td>
+<td class="gt_row gt_left" headers="VSORRESU">C</td>
+<td class="gt_row gt_left" headers="VSPOS">NA</td>
+<td class="gt_row gt_left" headers="VSLOC">SKIN</td>
+<td class="gt_row gt_left" headers="VSLAT">NA</td>
+<td class="gt_row gt_center" headers="VSDTC">2015-05-16T07:25</td>
+<td class="gt_row gt_left" headers="VSTPT">PREDOSE</td>
+<td class="gt_row gt_right" headers="VSTPTNUM">1</td>
+<td class="gt_row gt_left" headers="VISIT">VISIT1</td>
+<td class="gt_row gt_left" headers="VISITNUM">VISIT1</td>
+<td class="gt_row gt_left" headers="STUDYID">test_study</td>
+<td class="gt_row gt_left" headers="DOMAIN">VS</td>
+<td class="gt_row gt_left" headers="VSCAT">VITAL SIGNS</td>
+<td class="gt_row gt_left" headers="USUBJID">test_study-375</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="oak_id">1</td>
+<td class="gt_row gt_left" headers="raw_source">vitals</td>
+<td class="gt_row gt_right" headers="patient_number">375</td>
+<td class="gt_row gt_left" headers="VSTESTCD">OXYSAT</td>
+<td class="gt_row gt_left" headers="VSTEST">Oxygen Saturation</td>
+<td class="gt_row gt_right" headers="VSORRES">98.00</td>
+<td class="gt_row gt_left" headers="VSORRESU">%</td>
+<td class="gt_row gt_left" headers="VSPOS">NA</td>
+<td class="gt_row gt_left" headers="VSLOC">FINGER</td>
+<td class="gt_row gt_left" headers="VSLAT">RIGHT</td>
+<td class="gt_row gt_center" headers="VSDTC">2015-05-16T07:25</td>
+<td class="gt_row gt_left" headers="VSTPT">PREDOSE</td>
+<td class="gt_row gt_right" headers="VSTPTNUM">1</td>
+<td class="gt_row gt_left" headers="VISIT">VISIT1</td>
+<td class="gt_row gt_left" headers="VISITNUM">VISIT1</td>
+<td class="gt_row gt_left" headers="STUDYID">test_study</td>
+<td class="gt_row gt_left" headers="DOMAIN">VS</td>
+<td class="gt_row gt_left" headers="VSCAT">VITAL SIGNS</td>
+<td class="gt_row gt_left" headers="USUBJID">test_study-375</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</details>
 
 
 </section>
