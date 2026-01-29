@@ -1,0 +1,22 @@
+project:
+  type: website
+
+website:
+  title: "phuse-us-gsm-pharmaverse-2026"
+  site-url: https://zdz2101.github.io/PHUSE_gsm_pharmaverse
+  repo-url: https://github.com/zdz2101/PHUSE_gsm_pharmaverse
+  repo-branch: main
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: gsm_SDTM_example.qmd
+        text: Using gsm with sdtm.oak
+    right:
+      - icon: github
+        href: https://github.com/zdz2101/PHUSE_gsm_pharmaverse
+        aria-label: GitHub
+
+format:
+  html:
+    theme: cosmo
