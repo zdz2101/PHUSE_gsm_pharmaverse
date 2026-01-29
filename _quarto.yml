@@ -1,6 +1,7 @@
 project:
   type: website
-
+  render:
+    - "*.qmd"
 website:
   title: "phuse-us-gsm-pharmaverse-2026"
   site-url: https://zdz2101.github.io/PHUSE_gsm_pharmaverse

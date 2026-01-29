@@ -8,7 +8,7 @@ editor: visual
 
 ## Background:
 
-The `pharmaverse` has quickly established itself as a community standard for open-source clinical reporting, with packages like `sdtm.oak` for SDTM transformation, `admiral` for ADaM derivations and `gtsummary` for TFL generation. Emerging in the background is the new analysis results dataset standard, ARS, which `cards` can be used to support and shiny/web based tools to review visualizations as alternative to static reports.  In parallel, the `gsm` framework, in particular the `gsm.core` package, has matured as a YAML-driven workflow engine providing reproducibility, traceability, and audit-ready pipelines for data science in clinical development. These ecosystems have typically evolved in parallel, but their complementary strengths create an opportunity for integration.
+The `pharmaverse` has quickly established itself as a community standard for open-source clinical reporting, with packages like `sdtm.oak` for SDTM transformation, `admiral` for ADaM derivations and `gtsummary` for TFL generation. Emerging in the background is the new analysis results dataset standard, ARS, which `cards` can be used to support and shiny/web based tools to review visualizations as alternative to static reports. In parallel, the `gsm` framework, in particular the `gsm.core` package, has matured as a YAML-driven workflow engine providing reproducibility, traceability, and audit-ready pipelines for data science in clinical development. These ecosystems have typically evolved in parallel, but their complementary strengths create an opportunity for integration.
 
 ## Objective:
 
@@ -16,20 +16,15 @@ We present a hybrid "gsm–pharmaverse" pipeline demonstrating how `gsm.core` ca
 
 ## Methods
 
--  Raw → SDTM (gsm + sdtm.oak):
-Raw data were transformed into SDTM using gsm workflows, following a pre-existing sdtm.oak example for the VS domain as a reference implementation. An example can be found [here](gsm_SDTM_example.qmd).
+-   Raw → SDTM (gsm + sdtm.oak): Raw data were transformed into SDTM using gsm workflows, following a pre-existing sdtm.oak example for the VS domain as a reference implementation. An example can be found [here](gsm_SDTM_example.qmd).
 
-- SDTM → ADaM (gsm + admiral):
-SDTM domains were re-integrated into gsm workflows and passed through admiral derivations. Functions such as derive_vars_merged() and derive_param_map() were used to generate ADVS parameters and analysis values (e.g., MAP). Derivation logic was defined declaratively via YAML !expr tags, ensuring transformations were reproducible, transparent, and auditable.
+-   SDTM → ADaM (gsm + admiral): SDTM domains were re-integrated into gsm workflows and passed through admiral derivations. Functions such as derive_vars_merged() and derive_param_map() were used to generate ADVS parameters and analysis values (e.g., MAP). Derivation logic was defined declaratively via YAML !expr tags, ensuring transformations were reproducible, transparent, and auditable.
 
-- ADaM → TFLs (gsm + gtsummary):
-From the derived ADaM datasets, gsm workflows directly invoked gtsummary to generate table outputs. This enabled the production of publication-ready TFLs within a fully traceable, end-to-end pipeline.
+-   ADaM → TFLs (gsm + gtsummary): From the derived ADaM datasets, gsm workflows directly invoked gtsummary to generate table outputs. This enabled the production of publication-ready TFLs within a fully traceable, end-to-end pipeline.
 
-- ADaM → ARS (gsm + cards; exploratory):
-In parallel, the same ADaM datasets were extended using cards to explore the generation of ARS-aligned datasets and outputs. As ARS standards continue to evolve, this demonstrates how emerging libraries can be incorporated into the gsm framework with minimal friction.
+-   ADaM → ARS (gsm + cards; exploratory): In parallel, the same ADaM datasets were extended using cards to explore the generation of ARS-aligned datasets and outputs. As ARS standards continue to evolve, this demonstrates how emerging libraries can be incorporated into the gsm framework with minimal friction.
 
-- SDTM/ADaM → Shiny (gsm + safetyCharts; exploratory):
-Given the growing adoption of web-based visualization across organizations, gsm workflows were also evaluated as a mechanism to automatically refresh Shiny applications with newly derived data, supporting near-real-time exploratory and safety review.
+-   SDTM/ADaM → Shiny (gsm + safetyCharts; exploratory): Given the growing adoption of web-based visualization across organizations, gsm workflows were also evaluated as a mechanism to automatically refresh Shiny applications with newly derived data, supporting near-real-time exploratory and safety review.
 
 ## Results:
 
