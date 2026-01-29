@@ -1,25 +1,70 @@
 ---
-title: "gsm_SDTM_example"
+title: "Incorporating `sdtm.oak`"
 format: html
-editor: visual
 ---
 
-# Incorporating `sdtm.oak`
-
-```{r setup}
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
 library(dplyr)
 library(rlang)
 library(sdtm.oak)
+library(gt)
 options("yaml.eval.expr" = TRUE) # needs for admiral -- suggest gsm ecoystem write documentation
-
+```
 
 # Prepare list of data of raw-data
+```{r sdtm block}
 lData <- list(
   dm_raw = read.csv(system.file("raw_data/dm.csv", package = "sdtm.oak")),
   vs_raw =  read.csv(system.file("raw_data/vitals_raw_data.csv", package = "sdtm.oak")),
   study_ct = read.csv(system.file("raw_data/sdtm_ct.csv", package = "sdtm.oak"))
 )
+```
 
+<details>
+<summary>Show Raw DM preview (first 6 rows)</summary>
+
+```{r, echo = FALSE}
+head(lData$dm_raw) %>% gt()
+```
+</details>
+
+<details>
+<summary>Show Raw VS preview (first 6 rows)</summary>
+```{r, echo = FALSE}
+head(lData$vs_raw) %>% gt()
+```
+</details>
+
+<details>
+<summary>Show Study CT preview (first 6 rows)</summary>
+```{r, echo = FALSE}
+head(lData$study_ct) %>% gt()
+```
+</details>
+
+## Show YAML's of sdtm.oak transformations
+
+::: {.scrollbox}
+```{r}
+#| echo: false
+x <- readLines("sdtm.oak_data/workflows/1_RAW_TO_SDTM/SDTM.DM.yaml", warn = FALSE)
+cat("```yaml\n", paste(x, collapse = "\n"), "\n```\n", sep = "")
+```
+:::
+
+::: {.scrollbox}
+```{r}
+#| echo: false
+x <- readLines("sdtm.oak_data/workflows/1_RAW_TO_SDTM/SDTM.VS.yaml", warn = FALSE)
+cat("```yaml\n", paste(x, collapse = "\n"), "\n```\n", sep = "")
+```
+:::
+
+This workflow was designed to mimic and follow this respective `sdtm.oak` [vignette](https://pharmaverse.github.io/sdtm.oak/articles/findings_domain.html). 
+
+
+# Run Respective Workflows to Arrive at SDTM datasets
+```{r, message = FALSE}
 SDTM_workflows <- gsm.core::MakeWorkflowList(
   strNames = c("SDTM.VS", "SDTM.DM"),
   strPath = "./sdtm.oak_data/workflows/1_RAW_TO_SDTM/",
@@ -27,3 +72,11 @@ SDTM_workflows <- gsm.core::MakeWorkflowList(
 )
 SDTM_mapped <- gsm.core::RunWorkflows(lWorkflows = SDTM_workflows, lData = lData)
 ```
+
+
+<details>
+<summary>Show SDTM.VS (first 6 rows)</summary>
+```{r}
+head(SDTM_mapped$Mapped_SDTM.VS) %>% gt()
+```
+</details>
