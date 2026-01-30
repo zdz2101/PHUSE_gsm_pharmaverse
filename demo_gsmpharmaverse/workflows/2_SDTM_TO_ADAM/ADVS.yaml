@@ -1,21 +1,21 @@
 meta:
-  ID: ADAM.ADVS
-  Type: Analysis
+  ID: ADVS
+  Type: ADAM
   Description: Create Basic ADSL
   Priority: 1
 spec:
-  Mapped_SDTM.DM:
+  SDTM_DM:
     _all:
       required: true
-  Mapped_SDTM.VS:
+  SDTM_VS:
     _all:
       required: true
 steps:
   - output: initial_advs
     name: admiral::derive_vars_merged
     params:
-      dataset: Mapped_SDTM.VS
-      dataset_add: Mapped_SDTM.DM
+      dataset: SDTM_VS
+      dataset_add: SDTM_DM
       new_vars: !expr exprs(TRT01A)
       by_vars: !expr exprs(STUDYID, USUBJID)
   - output: advs

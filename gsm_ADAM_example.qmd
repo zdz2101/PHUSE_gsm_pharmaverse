@@ -1,0 +1,70 @@
+---
+title: "Incorporating `admiral`"
+format: html
+---
+
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
+library(dplyr)
+library(purrr)
+library(rlang)
+library(admiral)
+library(gt)
+options("yaml.eval.expr" = TRUE) # needs for admiral -- suggest gsm ecoystem write documentation
+```
+
+# Prepare list of data of raw-data
+```{r sdtm data load}
+sdtm <- list(
+  SDTM_DM = arrow::read_parquet("./demo_gsmpharmaverse/data/SDTM/SDTM_DM"),
+  SDTM_VS = arrow::read_parquet("./demo_gsmpharmaverse/data/SDTM/SDTM_VS")
+)
+```
+
+<details>
+<summary>Show Raw DM preview (first 6 rows)</summary>
+
+```{r Show SDTM DM, echo = FALSE}
+head(sdtm$SDTM_DM) %>% gt()
+```
+</details>
+
+<details>
+<summary>Show Raw VS preview (first 6 rows)</summary>
+```{r Show SDTM VS, echo = FALSE}
+head(sdtm$SDTM_VS) %>% gt()
+```
+</details>
+
+## Show YAML's of admiral transformations
+
+::: {.scrollbox}
+```{r Show ADVS transformation for MAP}
+#| echo: false
+x <- readLines("demo_gsmpharmaverse/workflows/2_SDTM_TO_ADAM/ADVS.yaml", warn = FALSE)
+cat("```yaml\n", paste(x, collapse = "\n"), "\n```\n", sep = "")
+```
+:::
+
+This workflow was inspired by portions of this `admiral` [vignette](https://pharmaverse.github.io/admiral/cran-release/articles/bds_finding.html?q=advs#derive_param). 
+
+```{r ADAM Workflows, message = FALSE}
+ADAM_workflows <- gsm.core::MakeWorkflowList(
+  strNames = "ADVS",
+  strPath = "demo_gsmpharmaverse/workflows/2_SDTM_TO_ADAM/",
+  strPackage = NULL
+)
+ADAM <- gsm.core::RunWorkflows(lWorkflows = ADAM_workflows, lData = sdtm)
+```
+
+```{r Save SDTM datasets, eval = FALSE}
+map2(ADAM, names(ADAM), function(x,y) arrow::write_parquet(x, paste0("demo_gsmpharmaverse/data/ADAM/",y)))
+```
+
+
+<details>
+<summary>Show ADVS (first 6 rows)</summary>
+```{r}
+head(ADAM$ADAM_ADVS) %>% gt()
+```
+</details>
+

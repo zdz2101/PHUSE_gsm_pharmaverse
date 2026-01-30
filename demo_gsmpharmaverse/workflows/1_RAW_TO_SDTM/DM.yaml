@@ -1,6 +1,6 @@
 meta:
-  ID: SDTM.DM
-  Type: Mapped
+  ID: DM
+  Type: SDTM
   Description: Transform Raw DM to SDTM DM
   Priority: 1
 spec:

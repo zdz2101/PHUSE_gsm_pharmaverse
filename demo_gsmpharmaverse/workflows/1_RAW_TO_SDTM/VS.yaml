@@ -1,6 +1,6 @@
 meta:
-  ID: SDTM.VS
-  Type: Mapped
+  ID: VS
+  Type: SDTM
   Description: Transform Raw VS to SDTM VS following sdtm.oak article
   Priority: 1
 spec:
