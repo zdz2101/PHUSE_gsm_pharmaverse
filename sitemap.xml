@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://zdz2101.github.io/PHUSE_gsm_pharmaverse/index.html</loc>
-    <lastmod>2026-01-30T20:10:25.888Z</lastmod>
+    <lastmod>2026-01-30T20:20:52.020Z</lastmod>
+  </url>
+  <url>
+    <loc>https://zdz2101.github.io/PHUSE_gsm_pharmaverse/gsm_SDTM_example.html</loc>
+    <lastmod>2026-01-30T19:57:12.457Z</lastmod>
   </url>
   <url>
     <loc>https://zdz2101.github.io/PHUSE_gsm_pharmaverse/gsm_ADAM_example.html</loc>
     <lastmod>2026-01-30T19:56:31.105Z</lastmod>
   </url>
   <url>
-    <loc>https://zdz2101.github.io/PHUSE_gsm_pharmaverse/gsm_SDTM_example.html</loc>
-    <lastmod>2026-01-30T19:57:12.457Z</lastmod>
+    <loc>https://zdz2101.github.io/PHUSE_gsm_pharmaverse/gsm_visualizations.html</loc>
+    <lastmod>2026-01-30T21:02:24.679Z</lastmod>
   </url>
 </urlset>
