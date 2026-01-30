@@ -1,9 +1,12 @@
 ---
-title: "Table1"
+title: "Table1 with gtsummary"
 ---
 
 ```{r, echo=FALSE, results='asis'}
 table1_params$dfADVS %>% 
+  dplyr::filter(.data$PARAMCD == "MAP",
+         .data$"VISIT" == "VISIT1",
+         .data$"VSTPT" == "PREDOSE") %>%
   gtsummary::tbl_summary(
     include = c(AVAL), 
     type = list(AVAL = "continuous")

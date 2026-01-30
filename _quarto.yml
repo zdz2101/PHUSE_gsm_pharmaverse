@@ -18,6 +18,10 @@ website:
         text: gsm & sdtm.oak
       - href: gsm_ADAM_example.qmd
         text: gsm & admiral
+      - href: gsm_visualizations.qmd
+        text: gsm & TFL packages
+      - href: demo_gsmpharmaverse/TFLS/WorkProduct1.html
+        text: Example Work Product Report
     right:
       - icon: github
         href: https://github.com/zdz2101/PHUSE_gsm_pharmaverse

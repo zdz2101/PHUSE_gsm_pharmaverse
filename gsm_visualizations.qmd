@@ -1,0 +1,78 @@
+---
+title: "Incorporating TFL libraries like `gtummary` and `safetyCharts` "
+format: html
+---
+
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
+library(dplyr)
+library(purrr)
+library(rlang)
+library(admiral)
+library(gtsummary)
+library(safetyCharts)
+library(gt)
+options("yaml.eval.expr" = TRUE) # needs for admiral -- suggest gsm ecoystem write documentation
+```
+
+# Prepare list of data of raw-data
+```{r sdtm data load}
+adam <- list(
+  ADVS = arrow::read_parquet("./demo_gsmpharmaverse/data/ADAM/ADAM_ADVS")
+)
+```
+
+<details>
+<summary>Show ADAM preview (first 6 rows)</summary>
+
+```{r Show SDTM DM, echo = FALSE}
+head(adam$ADVS) %>% gt()
+```
+</details>
+
+## Demo usage of `gtsummary`
+
+```{r demo gtsummary}
+adam$ADVS %>% 
+  filter(PARAMCD == "MAP" & VISIT == "VISIT1" & VSTPT == "PREDOSE") %>% 
+  gtsummary::tbl_summary(
+    include = c(AVAL), 
+    type = list(AVAL = "continuous")
+  )
+```
+
+
+## Demo usage of `safetyCharts`
+```{r}
+settings <- list(
+    value_col = "AVAL",
+    measure_col = "PARAMCD",
+    measure_values = c("MAP"),
+    visit_col = "VISIT",
+    visitn_col = "VISITNUM"
+)
+safety_results_over_time(adam$ADVS, settings)
+```
+
+
+## Show YAML's of admiral transformations
+
+::: {.scrollbox}
+```{r Show ADVS transformation for MAP}
+#| echo: false
+x <- readLines("demo_gsmpharmaverse/workflows/3_ADAM_TO_TFL/WorkProduct1.yaml", warn = FALSE)
+cat("```yaml\n", paste(x, collapse = "\n"), "\n```\n", sep = "")
+```
+:::
+
+This workflow combines aspects of `gtsummary` and `safetyCharts` modules to demonstrate how to assemble multiple static outputs or a hybrid approach that may include shiny/web app html-based modules.
+
+```{r ADAM Workflows, eval = FALSE, message = FALSE, warning = FALSE}
+TFL_workflows <- gsm.core::MakeWorkflowList(
+  strNames = "WorkProduct1",
+  strPath = "demo_gsmpharmaverse/workflows/3_ADAM_TO_TFL/",
+  strPackage = NULL
+)
+gsm.core::RunWorkflows(lWorkflows = TFL_workflows, lData = adam )
+```
+
+An example report [here](demo_gsmpharmaverse/TFLS/"WorkProduct1.html)

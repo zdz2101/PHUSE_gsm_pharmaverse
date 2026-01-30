@@ -14,9 +14,9 @@ We present a hybrid "gsm–pharmaverse" pipeline demonstrating how `gsm.core` ca
 
 ## Methods
 
--   Raw → SDTM (gsm + sdtm.oak): Raw data were transformed into SDTM using gsm workflows, following a pre-existing sdtm.oak example for the VS domain as a reference implementation. An example can be found [here](gsm_SDTM_example.qmd).
+-   Raw → SDTM ([gsm + sdtm.oak](gsm_SDTM_example.qmd)): Raw data were transformed into SDTM using gsm workflows, following a pre-existing sdtm.oak example for the VS domain as a reference implementation. An example can be found [here.
 
--   SDTM → ADaM (gsm + admiral): SDTM domains were re-integrated into gsm workflows and passed through admiral derivations. Functions such as `derive_vars_merged()` and `derive_param_map()` were used to generate ADVS parameters and analysis values (e.g., MAP). Derivation logic was defined declaratively via YAML !expr tags, ensuring transformations were reproducible, transparent, and auditable. An example can be found [here](gsm_ADAM_example.qmd).
+-   SDTM → ADaM ([gsm + admiral](gsm_ADAM_example.qmd)): SDTM domains were re-integrated into gsm workflows and passed through admiral derivations. Functions such as `derive_vars_merged()` and `derive_param_map()` were used to generate ADVS parameters and analysis values (e.g., MAP). Derivation logic was defined declaratively via YAML !expr tags, ensuring transformations were reproducible, transparent, and auditable. An example can be found .
 
 -   ADaM → TFLs (gsm + gtsummary): From the derived ADaM datasets, gsm workflows directly invoked gtsummary to generate table outputs. This enabled the production of publication-ready TFLs within a fully traceable, end-to-end pipeline.
 

@@ -1,0 +1,14 @@
+---
+title: "Figure1 with safetyCharts"
+---
+
+```{r, echo=FALSE, results='asis'}
+settings <- list(
+    value_col = "AVAL",
+    measure_col = "PARAMCD",
+    measure_values = c("MAP"),
+    visit_col = "VISIT",
+    visitn_col = "VISITNUM"
+)
+safety_results_over_time(figure1_params$dfADVS, settings)
+```
