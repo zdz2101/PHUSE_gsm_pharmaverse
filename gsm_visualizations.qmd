@@ -29,31 +29,6 @@ head(adam$ADVS) %>% gt()
 ```
 </details>
 
-## Demo usage of `gtsummary`
-
-```{r demo gtsummary}
-adam$ADVS %>% 
-  filter(PARAMCD == "MAP" & VISIT == "VISIT1" & VSTPT == "PREDOSE") %>% 
-  gtsummary::tbl_summary(
-    include = c(AVAL), 
-    type = list(AVAL = "continuous")
-  )
-```
-
-
-## Demo usage of `safetyCharts`
-```{r}
-settings <- list(
-    value_col = "AVAL",
-    measure_col = "PARAMCD",
-    measure_values = c("MAP"),
-    visit_col = "VISIT",
-    visitn_col = "VISITNUM"
-)
-safety_results_over_time(adam$ADVS, settings)
-```
-
-
 ## Show YAML's of admiral transformations
 
 ::: {.scrollbox}
@@ -75,4 +50,4 @@ TFL_workflows <- gsm.core::MakeWorkflowList(
 gsm.core::RunWorkflows(lWorkflows = TFL_workflows, lData = adam )
 ```
 
-An example report [here](demo_gsmpharmaverse/TFLS/"WorkProduct1.html)
+An example report [here](demo_gsmpharmaverse/TFLS/WorkProduct1.html)
