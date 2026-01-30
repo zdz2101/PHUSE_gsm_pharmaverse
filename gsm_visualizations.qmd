@@ -1,5 +1,5 @@
 ---
-title: "Incorporating TFL libraries like `gtummary` and `safetyCharts` "
+title: "Incorporating TFL libraries like `gtsummary` and `safetyCharts` "
 format: html
 ---
 

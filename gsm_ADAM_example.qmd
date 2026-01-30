@@ -64,7 +64,9 @@ map2(ADAM, names(ADAM), function(x,y) arrow::write_parquet(x, paste0("demo_gsmph
 <details>
 <summary>Show ADVS (first 6 rows)</summary>
 ```{r}
-head(ADAM$ADAM_ADVS) %>% gt()
+ADAM$ADAM_ADVS %>%
+  filter(.data[["PARAMCD"]] == "MAP") %>% 
+  gt()
 ```
 </details>
 
