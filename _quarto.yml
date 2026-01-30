@@ -16,6 +16,8 @@ website:
         text: Overview
       - href: gsm_SDTM_example.qmd
         text: gsm & sdtm.oak
+      - href: gsm_ADAM_example.qmd
+        text: gsm & admiral
     right:
       - icon: github
         href: https://github.com/zdz2101/PHUSE_gsm_pharmaverse
