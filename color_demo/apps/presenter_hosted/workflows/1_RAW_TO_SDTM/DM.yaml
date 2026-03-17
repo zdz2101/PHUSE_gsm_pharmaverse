@@ -1,0 +1,137 @@
+meta:
+  ID: DM
+  Type: SDTM
+  Description: Transform Supabase raw color votes to a DM-like SDTM dataset
+  Priority: 1
+spec:
+  raw_color_votes:
+    _all:
+      required: true
+  study_ct:
+    _all:
+      required: true
+steps:
+  - output: raw_color_votes
+    name: dplyr::mutate
+    params:
+      .data: raw_color_votes
+      record_id: !expr rlang::expr(as.integer(.data[["record_id"]]))
+      favorite_color: !expr rlang::expr(tolower(trimws(.data[["favorite_color"]])))
+  - output: raw_color_votes
+    name: sdtm.oak::generate_oak_id_vars
+    params:
+      raw_dat: raw_color_votes
+      pat_var: "record_id"
+      raw_src: "supabase"
+  - output: raw_red
+    name: gsm.core::RunQuery
+    params:
+      df: raw_color_votes
+      strQuery: "SELECT * FROM df WHERE favorite_color = 'red'"
+  - output: dm_red
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: raw_red
+      raw_var: "favorite_color"
+      tgt_var: "FAVCOLCD"
+      tgt_val: "RED"
+      ct_spec: study_ct
+      ct_clst: "COLOR"
+      id_vars: !expr rlang::expr(c(sdtm.oak::oak_id_vars(), "favorite_color"))
+  - output: raw_blue
+    name: gsm.core::RunQuery
+    params:
+      df: raw_color_votes
+      strQuery: "SELECT * FROM df WHERE favorite_color = 'blue'"
+  - output: dm_blue
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: raw_blue
+      raw_var: "favorite_color"
+      tgt_var: "FAVCOLCD"
+      tgt_val: "BLUE"
+      ct_spec: study_ct
+      ct_clst: "COLOR"
+      id_vars: !expr rlang::expr(c(sdtm.oak::oak_id_vars(), "favorite_color"))
+  - output: raw_yellow
+    name: gsm.core::RunQuery
+    params:
+      df: raw_color_votes
+      strQuery: "SELECT * FROM df WHERE favorite_color = 'yellow'"
+  - output: dm_yellow
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: raw_yellow
+      raw_var: "favorite_color"
+      tgt_var: "FAVCOLCD"
+      tgt_val: "YELLOW"
+      ct_spec: study_ct
+      ct_clst: "COLOR"
+      id_vars: !expr rlang::expr(c(sdtm.oak::oak_id_vars(), "favorite_color"))
+  - output: raw_green
+    name: gsm.core::RunQuery
+    params:
+      df: raw_color_votes
+      strQuery: "SELECT * FROM df WHERE favorite_color = 'green'"
+  - output: dm_green
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: raw_green
+      raw_var: "favorite_color"
+      tgt_var: "FAVCOLCD"
+      tgt_val: "GREEN"
+      ct_spec: study_ct
+      ct_clst: "COLOR"
+      id_vars: !expr rlang::expr(c(sdtm.oak::oak_id_vars(), "favorite_color"))
+  - output: raw_orange
+    name: gsm.core::RunQuery
+    params:
+      df: raw_color_votes
+      strQuery: "SELECT * FROM df WHERE favorite_color = 'orange'"
+  - output: dm_orange
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: raw_orange
+      raw_var: "favorite_color"
+      tgt_var: "FAVCOLCD"
+      tgt_val: "ORANGE"
+      ct_spec: study_ct
+      ct_clst: "COLOR"
+      id_vars: !expr rlang::expr(c(sdtm.oak::oak_id_vars(), "favorite_color"))
+  - output: raw_purple
+    name: gsm.core::RunQuery
+    params:
+      df: raw_color_votes
+      strQuery: "SELECT * FROM df WHERE favorite_color = 'purple'"
+  - output: dm_purple
+    name: sdtm.oak::hardcode_ct
+    params:
+      raw_dat: raw_purple
+      raw_var: "favorite_color"
+      tgt_var: "FAVCOLCD"
+      tgt_val: "PURPLE"
+      ct_spec: study_ct
+      ct_clst: "COLOR"
+      id_vars: !expr rlang::expr(c(sdtm.oak::oak_id_vars(), "favorite_color"))
+  - output: dm
+    name: dplyr::bind_rows
+    params:
+      dm_red: dm_red
+      dm_blue: dm_blue
+      dm_yellow: dm_yellow
+      dm_green: dm_green
+      dm_orange: dm_orange
+      dm_purple: dm_purple
+  - output: dm
+    name: dplyr::mutate
+    params:
+      .data: dm
+      STUDYID: "COLORDEMO"
+      DOMAIN: "DM"
+      FAVCOL: !expr rlang::expr(dplyr::case_when(.data[["FAVCOLCD"]] == "R" ~ "RED", .data[["FAVCOLCD"]] == "B" ~ "BLUE", .data[["FAVCOLCD"]] == "Y" ~ "YELLOW", .data[["FAVCOLCD"]] == "G" ~ "GREEN", .data[["FAVCOLCD"]] == "O" ~ "ORANGE", .data[["FAVCOLCD"]] == "P" ~ "PURPLE", TRUE ~ NA_character_))
+      USUBJID: !expr rlang::expr(sprintf("COLORDEMO-%03d", as.integer(.data[["patient_number"]])))
+  - output: dm
+    name: gsm.core::RunQuery
+    params:
+      df: dm
+      strQuery: "SELECT STUDYID, DOMAIN, USUBJID, FAVCOL, FAVCOLCD FROM df ORDER BY USUBJID"

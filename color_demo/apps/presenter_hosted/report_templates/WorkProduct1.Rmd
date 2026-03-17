@@ -1,0 +1,16 @@
+---
+output:
+  html_document:
+    toc: false
+params:
+  dfADSL: NA
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+# Favorite Color Summary
+
+```{r include-child, child="WorkProduct1_child.Rmd"}
+```

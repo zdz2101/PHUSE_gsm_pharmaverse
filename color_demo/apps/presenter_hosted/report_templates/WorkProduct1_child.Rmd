@@ -1,0 +1,17 @@
+```{r favorite-color-summary, echo=FALSE, message=FALSE, warning=FALSE}
+suppressWarnings(
+  suppressMessages(
+    params$dfADSL |>
+      dplyr::mutate(
+        COLOR_CLASS = factor(.data$COLOR_CLASS, levels = c("Primary", "Secondary"))
+      ) |>
+      dplyr::select(COLOR_CLASS) |>
+      gtsummary::tbl_summary(
+        statistic = gtsummary::all_categorical() ~ "{n} ({p}%)",
+        missing = "no"
+      ) |>
+      gtsummary::modify_header(label ~ "**Color Class**") |>
+      gtsummary::bold_labels()
+  )
+)
+```

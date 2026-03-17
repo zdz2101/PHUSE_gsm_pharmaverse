@@ -1,0 +1,22 @@
+meta:
+  ID: WorkProduct1
+  Type: TFL
+  Description: Render the favorite color primary versus secondary summary table
+  Priority: 1
+spec:
+  ADSL:
+    _all:
+      required: true
+steps:
+  - output: lParams
+    name: list
+    params:
+      dfADSL: ADSL
+  - output: table1
+    name: rmarkdown::render
+    params:
+      input: !expr color_demo_path("report_templates", "WorkProduct1.Rmd")
+      output_file: !expr color_demo_tfl_path()
+      envir: !expr new.env(parent = globalenv())
+      params: lParams
+      quiet: true

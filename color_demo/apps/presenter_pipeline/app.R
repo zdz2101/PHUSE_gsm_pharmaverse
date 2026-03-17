@@ -15,7 +15,7 @@ presenter_theme <- bslib::bs_theme(
 ui <- bslib::page_navbar(
   title = "Color Demo Pipeline",
   theme = presenter_theme,
-  shiny::tags$head(
+  header = shiny::tags$head(
     shiny::tags$style(
       shiny::HTML(
         "
@@ -37,6 +37,19 @@ ui <- bslib::page_navbar(
           background: rgba(29, 120, 116, 0.08);
           color: #21455c;
           white-space: pre-wrap;
+        }
+        .table-fill {
+          min-height: 0;
+          height: 100%;
+          overflow: auto;
+        }
+        .table-fill .html-widget,
+        .table-fill .datatables,
+        .table-fill .dataTables_wrapper {
+          width: 100%;
+        }
+        .yaml-preview {
+          min-height: 0;
         }
         .code-area textarea {
           font-family: Consolas, 'Courier New', monospace;
@@ -98,13 +111,10 @@ ui <- bslib::page_navbar(
     bslib::layout_columns(
       col_widths = c(4, 4, 4),
       bslib::card(
-        class = "stage-card",
+        class = "stage-card raw-top-card",
+        style = "height: 32rem;",
         full_screen = TRUE,
         bslib::card_header("Supabase SQL"),
-        shiny::p(
-          class = "yaml-note",
-          "Only read-only SELECT and WITH queries are allowed in this panel."
-        ),
         shiny::div(
           class = "code-area compact-code-area",
           shiny::textAreaInput("raw_sql", NULL, value = color_demo_default_sql(), width = "100%", resize = "vertical")
@@ -116,36 +126,26 @@ ui <- bslib::page_navbar(
         shiny::div(class = "status-text", shiny::textOutput("sql_status"))
       ),
       bslib::card(
-        class = "stage-card",
+        class = "stage-card raw-top-card",
+        style = "height: 32rem;",
         full_screen = TRUE,
         bslib::card_header("Controlled Terminology Preview"),
-        shiny::p(
-          class = "yaml-note",
-          "The custom CT spec used by sdtm.oak::hardcode_ct() to map full color terms to presentation-friendly codes."
-        ),
-        shiny::div(class = "file-label", "Source: color_demo/data/ct/color_terms.csv"),
-        DT::DTOutput("ct_preview")
+        shiny::div(class = "table-fill", DT::DTOutput("ct_preview"))
       ),
       bslib::card(
-        class = "stage-card",
+        class = "stage-card raw-top-card",
+        style = "height: 32rem;",
         full_screen = TRUE,
         bslib::card_header("Raw Preview"),
-        shiny::p(
-          class = "yaml-note",
-          "Latest raw rows currently available from Supabase."
-        ),
-        DT::DTOutput("raw_preview")
+        shiny::div(class = "table-fill", DT::DTOutput("raw_preview"))
       )
     ),
     bslib::layout_columns(
-      col_widths = c(3, 4, 5),
+      col_widths = c(4, 4, 4),
       bslib::card(
-        class = "stage-card",
+        class = "stage-card raw-bottom-card",
+        style = "height: 27rem;",
         bslib::card_header("DM.yaml"),
-        shiny::p(
-          class = "yaml-note",
-          "Runs the DM-like YAML workflow, normalizes colors, and maps them to controlled terminology with sdtm.oak::hardcode_ct()."
-        ),
         shiny::div(
           class = "action-row",
           shiny::actionButton("run_sdtm", "Run Raw -> SDTM", class = "btn-primary")
@@ -153,38 +153,31 @@ ui <- bslib::page_navbar(
         shiny::div(class = "status-text", shiny::textOutput("sdtm_status"))
       ),
       bslib::card(
-        class = "stage-card",
+        class = "stage-card raw-bottom-card",
+        style = "height: 27rem;",
         full_screen = TRUE,
         bslib::card_header("DM.yaml Preview"),
-        shiny::p(
-          class = "yaml-note",
-          "Exact YAML used for the Raw -> SDTM step."
-        ),
-        shiny::p(class = "file-label", "Workflow file: color_demo/workflows/1_RAW_TO_SDTM/DM.yaml"),
         shiny::div(
           class = "yaml-preview",
           shiny::verbatimTextOutput("dm_yaml_preview")
         )
       ),
       bslib::card(
-        class = "stage-card",
+        class = "stage-card raw-bottom-card",
+        style = "height: 27rem;",
         full_screen = TRUE,
         bslib::card_header("SDTM_DM Preview"),
-        DT::DTOutput("sdtm_preview")
+        shiny::div(class = "table-fill", DT::DTOutput("sdtm_preview"))
       )
     )
   ),
   bslib::nav_panel(
     "SDTM -> ADAM",
     bslib::layout_columns(
-      col_widths = c(3, 4, 5),
+      col_widths = c(4, 4, 4),
       bslib::card(
         class = "stage-card",
         bslib::card_header("ADSL.yaml"),
-        shiny::p(
-          class = "yaml-note",
-          "Adds COLOR_CLASS with admiral::derive_vars_computed(). If SDTM is missing, the app will generate it automatically first."
-        ),
         shiny::div(
           class = "action-row",
           shiny::actionButton("run_adam", "Run SDTM -> ADAM", class = "btn-primary")
@@ -195,11 +188,6 @@ ui <- bslib::page_navbar(
         class = "stage-card",
         full_screen = TRUE,
         bslib::card_header("ADSL.yaml Preview"),
-        shiny::p(
-          class = "yaml-note",
-          "Exact YAML used for the SDTM -> ADAM step."
-        ),
-        shiny::p(class = "file-label", "Workflow file: color_demo/workflows/2_SDTM_TO_ADAM/ADSL.yaml"),
         shiny::div(
           class = "yaml-preview",
           shiny::verbatimTextOutput("adsl_yaml_preview")
@@ -216,18 +204,13 @@ ui <- bslib::page_navbar(
   bslib::nav_panel(
     "ADAM -> TFL",
     bslib::layout_columns(
-      col_widths = c(3, 4, 5),
+      col_widths = c(4, 4, 4),
       bslib::card(
         class = "stage-card",
         bslib::card_header("WorkProduct1.yaml"),
-        shiny::p(
-          class = "yaml-note",
-          "Renders a gtsummary HTML work product. If ADAM is missing, the app will generate the upstream stages first."
-        ),
         shiny::div(
           class = "action-row",
-          shiny::actionButton("run_tfl", "Run ADAM -> TFL", class = "btn-primary"),
-          shiny::downloadButton("download_tfl", "Download HTML")
+          shiny::actionButton("run_tfl", "Run ADAM -> TFL", class = "btn-primary")
         ),
         shiny::div(class = "status-text", shiny::textOutput("tfl_status"))
       ),
@@ -235,16 +218,10 @@ ui <- bslib::page_navbar(
         class = "stage-card",
         full_screen = TRUE,
         bslib::card_header("R Markdown Sources"),
-        shiny::p(
-          class = "yaml-note",
-          "Parent and child R Markdown files used to render the Favorite Color Summary work product."
-        ),
-        shiny::p(class = "file-label", "Parent: color_demo/report_templates/WorkProduct1.Rmd"),
         shiny::div(
           class = "yaml-preview source-preview",
           shiny::verbatimTextOutput("tfl_parent_rmd_preview")
         ),
-        shiny::p(class = "file-label", "Child: color_demo/report_templates/WorkProduct1_child.Rmd"),
         shiny::div(
           class = "yaml-preview source-preview",
           shiny::verbatimTextOutput("tfl_child_rmd_preview")
@@ -509,10 +486,7 @@ server <- function(input, output, session) {
 
     html_text <- paste(readLines(rendered_path, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
 
-    shiny::tagList(
-      shiny::p(class = "yaml-note", sprintf("Current artifact: %s", rendered_path)),
-      shiny::tags$iframe(srcdoc = html_text, class = "tfl-frame")
-    )
+    shiny::tags$iframe(srcdoc = html_text, class = "tfl-frame")
   })
 
   output$tfl_parent_rmd_preview <- shiny::renderText({
@@ -529,20 +503,6 @@ server <- function(input, output, session) {
     )
   })
 
-  output$download_tfl <- shiny::downloadHandler(
-    filename = function() {
-      "WorkProduct1.html"
-    },
-    content = function(file) {
-      rendered_path <- tfl_data()
-
-      if (is.null(rendered_path) || !file.exists(rendered_path)) {
-        stop("No TFL artifact has been generated yet.", call. = FALSE)
-      }
-
-      file.copy(rendered_path, file, overwrite = TRUE)
-    }
-  )
 }
 
 shiny::shinyApp(ui = ui, server = server)

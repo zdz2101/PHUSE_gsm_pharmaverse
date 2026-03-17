@@ -4,7 +4,7 @@ This checklist is for making the `color_demo` actually live for a presentation:
 
 - Audience submits from a public Shiny URL.
 - Audience app writes to Supabase.
-- Presenter app runs locally and reads live results from Supabase.
+- Presenter app runs either locally or from a short-lived hosted Shiny URL and reads live results from Supabase.
 - Raw -> SDTM -> ADAM -> TFL can be rerun during the talk.
 
 ## 1. Supabase Project
@@ -111,6 +111,7 @@ SUPABASE_DB_SSLMODE=require
 - [ ] Fill in the Supabase database values for the presenter app.
 - [ ] Fill in `SHINYAPPS_NAME`, `SHINYAPPS_TOKEN`, and `SHINYAPPS_SECRET` for deployment.
 - [ ] Set `COLOR_DEMO_SHINYAPPS_APP_NAME` to the public app name you want.
+- [ ] If you are hosting the presenter app too, set `COLOR_DEMO_PRESENTER_SHINYAPPS_APP_NAME` to the app name you want.
 
 ## 4. Install And Verify R Packages
 
@@ -202,9 +203,46 @@ default:
   Note: the official docs say Free and Starter plans allow only 1 application instance.
 - [ ] If you expect many simultaneous audience submissions, consider a paid plan or rehearse with realistic traffic.
 - [ ] Warm the app shortly before the talk so the first attendee does not hit a cold start.
-- [ ] Keep the presenter app local only; do not publish the database-reading app.
+- [ ] If you host the presenter app, remember it carries live database credentials in its bundled config and should be treated as temporary.
 
-## 10. Final Rehearsal
+## 10. Hosted Presenter App
+
+- [ ] Edit [color_demo/apps/presenter_hosted/config.yml](C:/Users/zhuze/OneDrive%20-%20ATorus/Documents/PHUSE_gsm_pharmaverse/color_demo/apps/presenter_hosted/config.yml) before deploying.
+- [ ] Replace the placeholder values in the `default` section:
+
+```yaml
+default:
+  supabase_db:
+    host: "aws-0-your-region.pooler.supabase.com"
+    port: 5432
+    dbname: "postgres"
+    user: "postgres.your-project-ref"
+    password: "your-database-password"
+    sslmode: "require"
+```
+
+- [ ] Leave `local` and `shinyapps` inheriting from `default` unless you intentionally want different database targets.
+- [ ] Local smoke test the hosted bundle in RStudio before publishing:
+
+```powershell
+& 'C:\Program Files\R\R-4.4.1\bin\Rscript.exe' 'C:\Users\zhuze\OneDrive - ATorus\Documents\PHUSE_gsm_pharmaverse\color_demo\scripts\run_presenter_hosted_app.R'
+```
+
+- [ ] Confirm the hosted bundle can:
+  - query Supabase from the first tab
+  - regenerate SDTM_DM
+  - regenerate ADAM_ADSL
+  - render the HTML work product
+- [ ] Deploy the hosted presenter app when ready:
+
+```powershell
+& 'C:\Program Files\R\R-4.4.1\bin\Rscript.exe' 'C:\Users\zhuze\OneDrive - ATorus\Documents\PHUSE_gsm_pharmaverse\color_demo\scripts\deploy_presenter_hosted.R'
+```
+
+- [ ] Open the hosted presenter URL from a second browser to confirm it works away from your local R session.
+- [ ] Expect the hosted presenter app to lose cached `.rds` and HTML artifacts on restart because shinyapps.io storage is ephemeral.
+
+## 11. Final Rehearsal
 
 - [ ] Submit at least one primary color and one secondary color through the hosted audience app.
 - [ ] In the presenter app, confirm the SQL tab shows the new rows.
@@ -223,18 +261,28 @@ default:
 - [ ] Confirm `G/O/P` classify to `Secondary`.
 - [ ] Save the final presenter URL, shinyapps URL, and Supabase dashboard URL somewhere easy to reach during the presentation.
 
-## 11. Day-Of Checklist
+## 12. Day-Of Checklist
 
-- [ ] Start the local presenter app before the session:
+- [ ] Start the presenter app you plan to use before the session.
+- [ ] If you are using the local presenter app, start it with:
 
 ```powershell
 & 'C:\Program Files\R\R-4.4.1\bin\Rscript.exe' 'C:\Users\zhuze\OneDrive - ATorus\Documents\PHUSE_gsm_pharmaverse\color_demo\scripts\run_presenter_app.R'
 ```
+- [ ] If you are using the hosted presenter app, open its shinyapps.io URL and run one quick smoke test in the browser.
 - [ ] Open the hosted audience app and QR code on a slide.
 - [ ] Open the presenter app tabs you will demo.
 - [ ] Keep Supabase SQL Editor or Table Editor open in another browser tab as a fallback proof of ingestion.
 - [ ] Pre-run one vote yourself before the audience joins.
 - [ ] If the hosted audience app fails, enter a few votes manually through the Supabase SQL Editor so the pipeline demo can continue.
+- [ ] If the hosted presenter app fails, fall back to the local presenter app if available, or keep Supabase SQL Editor open as a backup proof of the live ingestion.
+
+## 13. Post-Demo Cleanup
+
+- [ ] Stop or delete the hosted presenter app on shinyapps.io when the talk is over.
+- [ ] Stop or delete the hosted audience app if you no longer need it.
+- [ ] Rotate the Supabase database password used by the hosted presenter app.
+- [ ] Remove or reset the real values from [color_demo/apps/presenter_hosted/config.yml](C:/Users/zhuze/OneDrive%20-%20ATorus/Documents/PHUSE_gsm_pharmaverse/color_demo/apps/presenter_hosted/config.yml) if you plan to keep the repo around.
 
 ## Official References
 
