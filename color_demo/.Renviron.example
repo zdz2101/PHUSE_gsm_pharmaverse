@@ -1,0 +1,14 @@
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_DB_HOST=db.your-project.supabase.co
+SUPABASE_DB_PORT=5432
+SUPABASE_DB_NAME=postgres
+SUPABASE_DB_USER=postgres
+SUPABASE_DB_PASSWORD=your-db-password
+SUPABASE_DB_SSLMODE=require
+SHINYAPPS_NAME=your-shinyapps-account
+SHINYAPPS_TOKEN=your-shinyapps-token
+SHINYAPPS_SECRET=your-shinyapps-secret
+COLOR_DEMO_SHINYAPPS_APP_NAME=color-demo-entry
+COLOR_DEMO_AUDIENCE_PORT=3838
+COLOR_DEMO_PRESENTER_PORT=3839

@@ -1,0 +1,33 @@
+meta:
+  ID: ADSL
+  Type: ADAM
+  Description: Derive a simple ADAM dataset with primary versus secondary color classification
+  Priority: 1
+spec:
+  SDTM_DM:
+    _all:
+      required: true
+steps:
+  - output: adam_base
+    name: gsm.core::RunQuery
+    params:
+      df: SDTM_DM
+      strQuery: "SELECT STUDYID, USUBJID, FAVCOL, FAVCOLCD FROM df ORDER BY USUBJID"
+  - output: adam_params
+    name: gsm.core::RunQuery
+    params:
+      df: SDTM_DM
+      strQuery: "SELECT STUDYID, USUBJID, 'FAVCOLCD' AS PARAMCD, FAVCOLCD AS AVALC FROM df ORDER BY USUBJID"
+  - output: adsl
+    name: admiral::derive_vars_computed
+    params:
+      dataset: adam_base
+      dataset_add: adam_params
+      by_vars: !expr rlang::exprs(STUDYID, USUBJID)
+      parameters: "FAVCOLCD"
+      new_vars: !expr rlang::exprs(COLOR_CLASS = dplyr::if_else(AVALC.FAVCOLCD %in% c("R", "B", "Y"), "Primary", "Secondary"))
+  - output: adsl
+    name: gsm.core::RunQuery
+    params:
+      df: adsl
+      strQuery: "SELECT STUDYID, USUBJID, FAVCOL, FAVCOLCD, COLOR_CLASS FROM df ORDER BY USUBJID"

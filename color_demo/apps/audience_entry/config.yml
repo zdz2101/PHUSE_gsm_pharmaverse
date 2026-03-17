@@ -1,0 +1,10 @@
+default:
+  supabase:
+    url: "https://gbbjeobfaxpuwhhpebpt.supabase.co"
+    anon_key: "sb_publishable_plW5tLwIPV7Tglq0gs1HHQ_bUxMusLQ"
+
+local:
+  inherits: default
+
+shinyapps:
+  inherits: default

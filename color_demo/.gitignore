@@ -1,0 +1,6 @@
+apps/audience_entry/rsconnect/
+.r_libs/
+data/cache/*
+!data/cache/.gitkeep
+TFLS/*
+!TFLS/.gitkeep
